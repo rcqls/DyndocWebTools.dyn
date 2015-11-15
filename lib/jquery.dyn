@@ -1,0 +1,5 @@
+[#=]js_header_jquery_cdnjs[
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+]
+[#rb>]
+LayoutMngr.register(:js_header, :jquery_cdnjs, #{=js_header_jquery_cdnjs})

@@ -1,0 +1,4 @@
+{#document][#main][#rb<]require '{#curpath]lib/layout_manager.rb[#}'
+[#require][#rb>]
+Dir['{#curpath]lib/*.dyn[#}'].map{|e| File.join("DyndocWebTools","lib",File.basename(e,'.dyn'))}.join("\n") 
+[#document}

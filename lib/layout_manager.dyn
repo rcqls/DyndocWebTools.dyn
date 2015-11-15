@@ -1,0 +1,15 @@
+{#def]LayoutLoad[#,]css_header[][#,]js_header[][#,]css_code[][#,]js_code[]
+[#,]js_code_post[]
+[#rb<]
+#{=css_header}.strip.split(",").each {|e| LayoutMngr << "css_header:"+e}
+#{=css_code}.strip.split(",").each {|e| LayoutMngr << "css_code:"+e}
+#{=js_header}.strip.split(",").each {|e| LayoutMngr << "js_header:"+e}
+#{=js_code}.strip.split(",").each {|e| LayoutMngr << "js_code:"+e}
+#{=js_code_post}.strip.split(",").each {|e| LayoutMngr << "js_code_post:"+e}
+[#def}
+
+{#def]LayoutHeader[#rb>]LayoutMngr.header[#}
+
+{#def]LayoutPostJS[#rb>]LayoutMngr.js_post[#}
+
+

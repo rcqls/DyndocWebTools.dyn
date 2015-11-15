@@ -1,0 +1,50 @@
+{#def]WebSocket[#,]addr[192.168.99.100][#,]port[9292]
+[#=]ws_js_code[
+var Socket = window.MozWebSocket || window.WebSocket,
+protos = ['dyndoc', 'xmpp'],
+socket = new Socket('ws://#{addr}:#{port}/', protos);
+
+var open_cmd = function(cmd,id) {
+  socket.addEventListener('open', function() {
+    send_cmd(cmd,id);
+  });
+};
+
+var send_cmd = function(cmd,id) {
+  if (typeof(id)==='undefined') id = "";
+  socket.send('__send_cmd__[[dyndoc'+id+']]__' + cmd + '__[[WS_END_TOKEN]]__');
+};
+
+var get_content = function(res) {
+  var data=res.split('__[[WS_END_TOKEN]]__');
+  last=data.pop();
+  result = data.join(""); 
+  regexp = /^__send_cmd__\[\[([a-zA-Z0-9_]*)(\#[^\]]*)?\]\]__([\s\S]*)/m;
+  res = result.match(regexp);
+  if(typeof(res[2]) === "undefined") {
+    return res[3];
+  } else {
+    $(res[2]).html(res[3]);
+  }
+};
+
+//TODO: log to a true logger!
+//var log = function(text) {
+//  $("#content").html(text);
+//};
+
+socket.onerror = function(event) {
+  console.log('ERROR: ' + event.message);
+};
+
+socket.onmessage = function(event) {
+  get_content(event.data);
+};
+
+socket.onclose = function(event) {
+  console.log('CLOSE: ' + event.code + ', ' + event.reason);
+};
+]
+[#rb<]
+LayoutMngr << [:js_code,#{=ws_js_code}]
+[#def}

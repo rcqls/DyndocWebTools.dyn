@@ -1,0 +1,19 @@
+[#=]js_header_ace_tools[
+<script src="tools/ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="tools/ace/src/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
+]
+[#=]css_code_ace_tools[
+.ace_editor {
+	border: 1px solid lightgray;
+	margin: auto;
+	height: 200px;
+	width: 90%;
+}
+.scrollmargin {
+	height: 80px;
+	text-align: center;
+}
+]
+[#rb>]
+LayoutMngr.register(:js_header, :ace_tools, #{=js_header_ace_tools})
+LayoutMngr.register(:css_code, :ace_tools, #{=css_code_ace_tools})

@@ -1,0 +1,54 @@
+{#def]DynEditor[#,]id[][#,]theme[monokai][#,]code[{#txt][#R>>]rnorm(20)[#}]
+[#=]dyneditor_html_code[<div id="dyn_content_#{id}"></div>
+    <pre id="dyn_editor_#{id}" style="margin:10px;width:50%;"></pre>
+]
+[#=]dyneditor_js_code_post[
+      var editor_#{id} = ace.edit("dyn_editor_#{id}");
+      editor_#{id}.setOptions({
+        //autoScrollEditorIntoView: true,
+        enableBasicAutocompletion: true,
+        enableSnippets: true
+      });
+      editor_#{id}.setTheme("ace/theme/#{theme}");
+      editor_#{id}.session.setMode("ace/mode/dyndoc");
+      editor_#{id}.session.setValue("#{code}");
+      editor_#{id}.setAutoScrollEditorIntoView(true);
+      editor_#{id}.setOption("maxLines", 30);
+
+      $(function () {
+          
+          $("#dyn_content_#{id}").dblclick(function(e) {
+            $("#dyn_content_#{id}").hide();
+            $("#dyn_editor_#{id}").show();
+            editor_#{id}.resize();
+            editor_#{id}.focus();
+          });
+
+          $("#dyn_content_#{id}").click(function(e) {
+            if (e.shiftKey) {
+              send_cmd(editor_#{id}.getSession().getValue(),"#dyn_content_#{id}");
+            }
+          });
+
+          editor_#{id}.commands.addCommand({
+              name: 'dyndoc',
+              bindKey: {mac: "Command-X", win: "Ctrl-X"},
+              exec: function(editor) {
+                  send_cmd(editor.getSession().getValue(),"#dyn_content_#{id}");
+                  $("#dyn_editor_#{id}").hide();
+                  $("#dyn_content_#{id}").show();
+              }
+          })
+          open_cmd(editor_#{id}.getSession().getValue(),"#dyn_content_#{id}");
+          $("#dyn_editor_#{id}").hide();
+      });
+]
+[#<]{#LayoutLoad]
+[#js_header]jquery_cdnjs,ace_tools
+[#css_header]uv_solarized
+[#css_code]ace_tools
+[#}
+[#rb<]
+LayoutMngr << [:js_code_post,#{=dyneditor_js_code_post}]
+[#>]#{dyneditor_html_code}
+[#def}
