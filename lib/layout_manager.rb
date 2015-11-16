@@ -2,6 +2,16 @@ class LayoutMngr
 
 	@@layoutMngr=nil
 
+	def LayoutMngr.base_href
+		here=Dir.pwd.split(File::Separator)
+		#p [:here,here]
+		href_base=nil
+		["dyndoc-proj","dyndocker"].each do |base|
+			href_base='../'*(here.length-here.rindex(base)) if here.include? base
+		end
+		href_base || "./"
+	end
+
 	def LayoutMngr.register(type,id,content)
 		@@layoutMngr=LayoutMngr.new unless @@layoutMngr
 		@@layoutMngr.register(type,id,content)
