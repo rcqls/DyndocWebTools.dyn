@@ -8,6 +8,8 @@
 #{=js_code_post}.strip.split(",").each {|e| LayoutMngr << "js_code_post:"+e}
 [#def}
 
+{#def]LayoutHrefBase[#rb>]LayoutMngr.href_base[#}
+
 {#def]LayoutHeader[#rb>]LayoutMngr.header[#}
 
 {#def]LayoutPostJS[#rb>]LayoutMngr.js_post[#}
