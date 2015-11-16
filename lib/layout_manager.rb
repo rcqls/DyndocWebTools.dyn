@@ -2,7 +2,7 @@ class LayoutMngr
 
 	@@layoutMngr=nil
 
-	def LayoutMngr.base_href
+	def LayoutMngr.href_base
 		here=Dir.pwd.split(File::Separator)
 		#p [:here,here]
 		href_base=nil
