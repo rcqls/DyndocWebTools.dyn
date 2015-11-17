@@ -2,8 +2,8 @@ class LayoutMngr
 
 	@@layoutMngr=nil
 
-	def LayoutMngr.href_base
-		here=Dir.pwd.split(File::Separator)
+	def LayoutMngr.href_base(here)
+		here=here.split(File::Separator)
 		#p [:here,here]
 		href_base=nil
 		["dyndoc-proj","dyndocker"].each do |base|
