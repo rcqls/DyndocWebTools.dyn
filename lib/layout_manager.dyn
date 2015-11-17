@@ -8,7 +8,7 @@
 #{=js_code_post}.strip.split(",").each {|e| LayoutMngr << "js_code_post:"+e}
 [#def}
 
-{#def]LayoutHrefBase[#,]from[{#pwd#}][#rb>]LayoutMngr.href_base(#{=pwd})[#}
+{#def]LayoutHrefBase[#,]from[{#pwd#}][#rb>]LayoutMngr.href_base(#{=from})[#}
 
 {#def]LayoutHeader[#rb>]LayoutMngr.header[#}
 
