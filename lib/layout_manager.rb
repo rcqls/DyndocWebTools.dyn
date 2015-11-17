@@ -4,10 +4,9 @@ class LayoutMngr
 
 	def LayoutMngr.href_base(here)
 		here=here.split(File::Separator)
-		#p [:here,here]
 		href_base=nil
 		["dyndoc-proj","dyndocker"].each do |base|
-			href_base='../'*(here.length-here.rindex(base)) if here.include? base
+			href_base='../'*(here.length-here.rindex(base)-2) if here.include? base
 		end
 		href_base || "./"
 	end
