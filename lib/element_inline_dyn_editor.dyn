@@ -26,7 +26,7 @@
 
           $("#dyn_content_#{id}").click(function(e) {
             if (e.shiftKey) {
-              send_cmd(editor_#{id}.getSession().getValue(),"#dyn_content_#{id}");
+              send_dyndoc_cmd(editor_#{id}.getSession().getValue(),"#dyn_content_#{id}");
             }
           });
 
@@ -34,7 +34,7 @@
               name: 'dyndoc',
               bindKey: {mac: "Command-X", win: "Ctrl-X"},
               exec: function(editor) {
-                  send_cmd(editor.getSession().getValue(),"#dyn_content_#{id}");
+                  send_dyndoc_cmd(editor.getSession().getValue(),"#dyn_content_#{id}");
                   $("#dyn_editor_#{id}").hide();
                   $("#dyn_content_#{id}").show();
               }

@@ -1,0 +1,63 @@
+{#def]SessionLogin[#,]id[Session id][#,]user[Utilisateur id][#,]passwd[Mot de Passe][#,]info[Informations][#,]info2[Prénom, Nom, Email, ...][#,]login[Connectez-vous]
+[#=]session_login_html_code[
+<div id="session_form_login">
+    #{id}: <input type="text" id="session_id_login"/><br/>
+    #{user}: <input type="text" id="user_id_login"/><br/>
+    #{passwd}: <input type="text" id="passwd_login"/><br/>
+    #{info}: <input type="text" id="info_login" value="#{info2}"/><br/>
+    <button id="submit_login">#{login}</button>
+</div>
+]
+[#=]session_login_js_code_post[
+
+      $(function () {
+          $("#submit_login").click(function() {
+            var id=$("#session_id_login").val();
+            var user=$("#user_id_login").val();
+            var passwd=$("#passwd_login").val();
+            var info=$("#first_name_login").val();
+            if(info === "#{info2}") info="";
+            var content = user+'|'+passwd+'|'+info;
+            send_cmd("session_login",id,content);
+            $("#session_main").show();
+          });
+      });
+]
+[#<]{#LayoutLoad]
+[#js_header]jquery_cdnjs
+[#}
+[#rb<]
+LayoutMngr << [:js_code_post,#{=session_login_js_code_post}]
+[#>]#{session_login_html_code}
+[#def}
+
+{#def]SessionAdmin
+[#=]session_admin_html_code[
+<div id="session_list"></div>
+<div id="form_admin">
+    Session id: <input type="text" id="session_id_admin"/><br/>
+    Session passwd: <input type="text" id="session_passwd_admin"/><br/>
+    <button id="session_new_admin">New</button><button id="session_remove_admin">Remove</button>
+</div>
+]
+[#=]session_admin_js_code_post[
+
+      $(function () {
+          $("#session_new_admin").click(function() {
+            var id=$("#session_id_admin").val();
+            var passwd=$("#session_passwd_admin").val();
+            send_cmd("session_new",id,passwd);
+          });
+          $("#session_remove_admin").click(function() {
+            var id=$("#session_id_admin").val();
+            send_cmd("session_remove",id,"");
+          });
+      });
+]
+[#<]{#LayoutLoad]
+[#js_header]jquery_cdnjs
+[#}
+[#rb<]
+LayoutMngr << [:js_code_post,#{=session_admin_js_code_post}]
+[#>]#{session_admin_html_code}
+[#def}

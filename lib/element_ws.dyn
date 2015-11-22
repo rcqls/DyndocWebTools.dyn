@@ -6,18 +6,19 @@ socket = new Socket('ws://#{addr}:#{port}/', protos);
 
 var open_cmd = function(cmd,id) {
   socket.addEventListener('open', function() {
-    send_cmd(cmd,id);
+    send_dyndoc_cmd(cmd,id);
   });
 };
 
-var send_cmd = function(cmd,id) {
+var send_dyndoc_cmd = function(content,id) {
   if (typeof(id)==='undefined') id = "";
-  socket.send('__send_cmd__[[dyndoc'+id+']]__' + cmd + '__[[WS_END_TOKEN]]__');
+  socket.send('__send_cmd__[[dyndoc'+id+']]__' + content + '__[[WS_END_TOKEN]]__');
 };
 
-var send_session_login = function(id,passwd,user,info) {
-  var cmd = user+'|'+passwd+'|'+info;
-  socket.send('__send_cmd__[[session_login#'+id+']]__' + cmd + '__[[WS_END_TOKEN]]__');
+var send_cmd = function(cmd,id,content) {
+  if (typeof(id)==='undefined') id = "";
+  else id = "#"+id;
+  socket.send('__send_cmd__[['+cmd+id+']]__' + content + '__[[WS_END_TOKEN]]__');
 };
 
 var get_content = function(res) {
