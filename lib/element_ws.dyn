@@ -15,16 +15,23 @@ var send_cmd = function(cmd,id) {
   socket.send('__send_cmd__[[dyndoc'+id+']]__' + cmd + '__[[WS_END_TOKEN]]__');
 };
 
+var send_session_login = function(id,passwd,user,info) {
+  var cmd = user+'|'+passwd+'|'+info;
+  socket.send('__send_cmd__[[session_login#'+id+']]__' + cmd + '__[[WS_END_TOKEN]]__');
+};
+
 var get_content = function(res) {
   var data=res.split('__[[WS_END_TOKEN]]__');
   last=data.pop();
   result = data.join(""); 
   regexp = /^__send_cmd__\[\[([a-zA-Z0-9_]*)(\#[^\]]*)?\]\]__([\s\S]*)/m;
   res = result.match(regexp);
-  if(typeof(res[2]) === "undefined") {
-    return res[3];
-  } else {
-    $(res[2]).html(res[3]);
+  if(res[1] === "dyndoc") {
+    if(typeof(res[2]) === "undefined") {
+      return res[3];
+    } else {
+      $(res[2]).html(res[3]);
+    }
   }
 };
 
