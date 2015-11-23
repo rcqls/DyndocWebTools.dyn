@@ -11,7 +11,7 @@
 [#=]session_login_js_code_post[
 
       $(function () {
-          $("#submit_login").click(function() {
+          $("#session_submit_login").click(function() {
             var id=$("#session_id_login").val();
             var user=$("#session_user_id_login").val();
             var passwd=$("#session_passwd_login").val();
