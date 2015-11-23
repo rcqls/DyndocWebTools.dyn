@@ -38,9 +38,18 @@ class LayoutMngr
 		@@layoutMngr.js_post
 	end
 
+	def LayoutMngr.reinit
+		@@layoutMngr=LayoutMngr.new unless @@layoutMngr
+		@@layoutMngr.init_regs_and_ids
+	end
+
 	attr_accessor :ids, :regs
 
 	def initialize
+		init_regs_and_ids
+	end
+
+	def init_regs_and_ids
 		@regs,@ids={},{}
 		types=[:css_header,:css_code,:js_header,:js_code,:js_code_post]
 		types.each{|type| @regs[type],@ids[type]={},[] }

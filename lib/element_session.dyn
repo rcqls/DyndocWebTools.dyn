@@ -1,11 +1,11 @@
 {#def]SessionLogin[#,]id[Session id][#,]user[Utilisateur id][#,]passwd[Mot de Passe][#,]info[Informations][#,]info2[Prénom, Nom, Email, ...][#,]login[Connectez-vous]
 [#=]session_login_html_code[
-<div id="session_form_login">
+<div id="session_login">
     #{id}: <input type="text" id="session_id_login"/><br/>
-    #{user}: <input type="text" id="user_id_login"/><br/>
-    #{passwd}: <input type="text" id="passwd_login"/><br/>
-    #{info}: <input type="text" id="info_login" value="#{info2}"/><br/>
-    <button id="submit_login">#{login}</button>
+    #{user}: <input type="text" id="session_user_id_login"/><br/>
+    #{passwd}: <input type="text" id="session_passwd_login"/><br/>
+    #{info}: <input type="text" id="session_info_login" value="#{info2}"/><br/>
+    <button id="session_submit_login">#{login}</button>
 </div>
 ]
 [#=]session_login_js_code_post[
@@ -13,13 +13,14 @@
       $(function () {
           $("#submit_login").click(function() {
             var id=$("#session_id_login").val();
-            var user=$("#user_id_login").val();
-            var passwd=$("#passwd_login").val();
-            var info=$("#first_name_login").val();
+            var user=$("#session_user_id_login").val();
+            var passwd=$("#session_passwd_login").val();
+            var info=$("#session_info_login").val();
             if(info === "#{info2}") info="";
             var content = user+'|'+passwd+'|'+info;
             send_cmd("session_login",id,content);
             $("#session_main").show();
+            $("#session_login").hide();
           });
       });
 ]
