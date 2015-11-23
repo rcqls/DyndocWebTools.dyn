@@ -35,10 +35,10 @@ LayoutMngr << [:js_code_post,#{=session_login_js_code_post}]
 {#def]SessionAdmin
 [#=]session_admin_html_code[
 <div id="session_list"></div>
-<div id="form_admin">
+<div id="session_admin">
     Session id: <input type="text" id="session_id_admin"/><br/>
     Session passwd: <input type="text" id="session_passwd_admin"/><br/>
-    <button id="session_new_admin">New</button><button id="session_remove_admin">Remove</button><button id="session_ls_admin">Users list</button>
+    <button id="session_new_admin">New</button><button id="session_remove_admin">Remove</button><button id="session_ls_admin">Session list</button>
 </div>
 ]
 [#=]session_admin_js_code_post[
