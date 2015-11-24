@@ -2,7 +2,7 @@
 [#=]question_choices_html_code[<p>#{question}</p>]
 [#rb<]
   (0...#{#choices}).each do |i| #
-    {#>][#+]question_choices_html_code[<input type="radio" name="q_#{id}"><p>#{choices.:{i}}</p></input>][#>}
+    {#>][#+]question_choices_html_code[<input type="radio" name="q_#{id}">#{choices.:{i}}</input><br/>][#>}
   end
 [#=]question_choices_js_code_post[
       $(function () {
