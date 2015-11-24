@@ -8,7 +8,7 @@
       $(function () {
         $('input:radio[name=q_#{id}]:checked').change(function () {
           $('input[type=radio][name=q_#{id}]:checked').val();  
-        }
+        });
       });
 ]
 [#<]{#LayoutLoad]
