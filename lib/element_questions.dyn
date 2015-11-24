@@ -1,0 +1,20 @@
+{#def]QuestionChoices[#,]id[][#,]question[][#,]choices[][#,]answer[]
+[#=]question_choices_html_code[<p>#{question}</p>]
+[#rb<]
+  (0...#{#choices}).each do |i| #
+    {#>][#+]question_choices_html_code[<input type="radio" name="q_#{id}">#{choices.:{i}}</input>][#>}
+  end
+[#=]question_choices_js_code_post[
+      $(function () {
+        $('input:radio[name=q_#{id}]:checked').change(function () {
+          $('input[type=radio][name=q_#{id}]:checked').val();  
+        }
+      });
+]
+[#<]{#LayoutLoad]
+[#js_header]jquery_cdnjs
+[#}
+[#rb<]
+LayoutMngr << [:js_code_post,#{=question_choices_js_code_post}]
+[#>]#{question_choices_html_code}
+[#def}

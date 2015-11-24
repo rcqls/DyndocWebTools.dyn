@@ -38,7 +38,9 @@ LayoutMngr << [:js_code_post,#{=session_login_js_code_post}]
 <div id="session_admin">
     Session id: <input type="text" id="session_id_admin"/><br/>
     Session passwd: <input type="text" id="session_passwd_admin"/><br/>
-    <button id="session_new_admin">New</button><button id="session_remove_admin">Remove</button><button id="session_ls_admin">Session list</button>
+    <button id="session_new_admin">New</button><button id="session_remove_admin">Remove</button><button id="session_ls_admin">Session list</button><br/><br/>
+    Question id: <input type="text" id="session_question_id_admin"/><br/>
+    <button id="session_question_show_admin">Question Show</button><button id="session_question_hide_admin">Question Hide</button>
 </div>
 ]
 [#=]session_admin_js_code_post[
@@ -57,6 +59,16 @@ LayoutMngr << [:js_code_post,#{=session_login_js_code_post}]
             var id=$("#session_id_admin").val();
             send_cmd("session_ls",id,"");
           });
+          $("#session_question_show_admin").click(function() {
+            var id=$("#session_question_id_admin").val();
+            send_cmd("session_all_clients_element",id,"show,"+qid);
+          });
+          $("#session_question_hide_admin").click(function() {
+            var id=$("#session_id_admin").val();
+            var qid=$("#session_question_id_admin").val();
+            send_cmd("session_all_clients_element",id,"hide,"+qid);
+          });
+
       });
 ]
 [#<]{#LayoutLoad]

@@ -1,6 +1,7 @@
-{#def]DynEditor[#,]id[][#,]theme[monokai][#,]code[{#txt][#R>>]rnorm(20)[#}]
-[#=]dyneditor_html_code[<div id="dyn_content_#{id}"></div>
+{#def]DynEditor[#,]id[][#,]inline[true][#,]theme[monokai][#,]code[{#txt][#R>>]rnorm(20)[#}]
+[#=]dyneditor_html_code[
     <pre id="dyn_editor_#{id}" style="margin:10px;width:50%;"></pre>
+    <div id="dyn_content_#{id}" style="margin:10px;width:50%;"></div>
 ]
 [#=]dyneditor_js_code_post[
       var editor_#{id} = ace.edit("dyn_editor_#{id}");
@@ -35,7 +36,7 @@
               bindKey: {mac: "Command-X", win: "Ctrl-X"},
               exec: function(editor) {
                   send_dyndoc_cmd(editor.getSession().getValue(),"#dyn_content_#{id}");
-                  $("#dyn_editor_#{id}").hide();
+                  {#if]#{inline}[#>]$("#dyn_editor_#{id}").hide();[#if}
                   $("#dyn_content_#{id}").show();
               }
           })
