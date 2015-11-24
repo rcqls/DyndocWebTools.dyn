@@ -19,7 +19,6 @@
             if(info === "#{info2}") info="";
             var content = user+'|'+passwd+'|'+info;
             send_cmd("session_login",id,content);
-            $("#session_main").show();
             $("#session_login").hide();
           });
       });
