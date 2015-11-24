@@ -59,7 +59,8 @@ LayoutMngr << [:js_code_post,#{=session_login_js_code_post}]
             send_cmd("session_ls",id,"");
           });
           $("#session_question_show_admin").click(function() {
-            var id=$("#session_question_id_admin").val();
+            var id=$("#session_id_admin").val();
+            var qid=$("#session_question_id_admin").val();
             send_cmd("session_all_clients_element",id,"show,"+qid);
           });
           $("#session_question_hide_admin").click(function() {
