@@ -12,7 +12,7 @@
         $('input:radio[name=q_#{id}]:checked').change(function () {
           $('input[type=radio][name=q_#{id}]:checked').val();  
         });
-        $("session_question_#{id}").hide();
+        $("#session_question_#{id}").hide();
       });
 ]
 [#<]{#LayoutLoad]
