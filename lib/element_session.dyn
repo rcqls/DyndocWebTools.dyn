@@ -1,5 +1,6 @@
 {#def]SessionLogin[#,]id[Session id][#,]user[Utilisateur id][#,]passwd[Mot de Passe][#,]info[Informations][#,]info2[Prénom, Nom, Email, ...][#,]login[Connectez-vous]
 [#=]session_login_html_code[
+<div id="session_msg"></div>
 <div id="session_login">
     #{id}: <input type="text" id="session_id_login"/><br/>
     #{user}: <input type="text" id="session_user_id_login"/><br/>
