@@ -1,6 +1,9 @@
 {#def]SessionLogin[#,]id[Session id][#,]user[Utilisateur id][#,]passwd[Mot de Passe][#,]info[Informations][#,]info2[Prénom, Nom, Email, ...][#,]login[Connectez-vous]
 [#=]session_login_html_code[
 <div id="session_msg"></div>
+<input type="hidden" name="session_id" value="" />
+<input type="hidden" name="session_passwd" value="" />
+<input type="hidden" name="session_user" value="" />
 <div id="session_login">
     #{id}: <input type="text" id="session_id_login"/><br/>
     #{user}: <input type="text" id="session_user_id_login"/><br/>
@@ -15,6 +18,8 @@
       $(function () {
           $("#session_submit_login").click(function() {
             var id=$("#session_id_login").val();
+            $('input[name=session_id]').val(id);
+            console.log("saved id:"+$('input[name=session_id]').val());
             var user=$("#session_user_id_login").val();
             var passwd=$("#session_passwd_login").val();
             var info=$("#session_info_login").val();

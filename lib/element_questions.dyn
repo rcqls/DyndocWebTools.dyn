@@ -6,15 +6,17 @@
   (0...#{#choices}).each do |i| #
     {#>][#+]question_radio_choices_html_code[<input type="radio" name="session-radio-question" value="q:{i+1}">#{choices.:{i}}</input><br/>][#>}
   end
-[#+]question_radio_choices_html_code[
+[#>]question_radio_choices_html_code+[
 </div>
 <script>
 $('input[name=session-radio-question]').on('change',function () {
         console.log("clicked");
+        var id=$('input[name=session_id]').val();
+        console.log("id:"+id);
         var answer=$('input[type=radio][name=session-radio-question]:checked').val();
         var qid=$("#session_question").attr("data-session-question-id");
         //console.log("session "+ qid+ ":"+ answer + "checked");
-        send_cmd("session_answer",id,"hide,"+qid);
+        send_cmd("session_answer",id,qid+"|"+answer);
 });
 </script>
 ]
@@ -27,4 +29,5 @@ Question.register(id: #{=id},
   html: #{=question_radio_choices_html_code},
   answer: #{=answer}
 )
+#p #{=question_radio_choices_html_code}
 [#def}
