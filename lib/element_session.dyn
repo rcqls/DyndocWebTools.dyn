@@ -8,6 +8,7 @@
     #{info}: <input type="text" id="session_info_login" value="#{info2}"/><br/>
     <button id="session_submit_login">#{login}</button>
 </div>
+<div id="session_content"></div>
 ]
 [#=]session_login_js_code_post[
 

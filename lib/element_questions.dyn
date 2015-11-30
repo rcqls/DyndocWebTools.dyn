@@ -1,24 +1,30 @@
-{#def]QuestionChoices[#,]id[][#,]question[][#,]choices[][#,]answer[]
-[#=]question_choices_html_code[<div id="session_question_#{id}"><p>#{question}</p>]
+{#def]QuestionRadioChoices[#,]id[][#,]question[][#,]choices[][#,]answer[]
+[#%]answer could be an integer corresponding to the rank of the answer amoung the questions. Below is a correction
+[#?]#{=answer} =~ /^[1-9][0-9]*$/[#=]answer[q#{answer}][#?]end
+[#=]question_radio_choices_html_code[<div id="session_question" data-session-question-id="#{id}"><p>#{question}</p>]
 [#rb<]
   (0...#{#choices}).each do |i| #
-    {#>][#+]question_choices_html_code[<input type="radio" name="q_#{id}">#{choices.:{i}}</input><br/>][#>}
+    {#>][#+]question_radio_choices_html_code[<input type="radio" name="session-radio-question" value="q:{i+1}">#{choices.:{i}}</input><br/>][#>}
   end
-[#+]question_choices_html_code[
+[#+]question_radio_choices_html_code[
 </div>
-]
-[#=]question_choices_js_code_post[
-      $(function () {
-        $('input:radio[name=q_#{id}]:checked').change(function () {
-          $('input[type=radio][name=q_#{id}]:checked').val();  
-        });
-        $("#session_question_#{id}").hide();
-      });
+<script>
+$('input[name=session-radio-question]').on('change',function () {
+        console.log("clicked");
+        var answer=$('input[type=radio][name=session-radio-question]:checked').val();
+        var qid=$("#session_question").attr("data-session-question-id");
+        //console.log("session "+ qid+ ":"+ answer + "checked");
+        send_cmd("session_answer",id,"hide,"+qid);
+});
+</script>
 ]
 [#<]{#LayoutLoad]
 [#js_header]jquery_cdnjs
 [#}
 [#rb<]
-LayoutMngr << [:js_code_post,#{=question_choices_js_code_post}]
-[#>]#{question_choices_html_code}
+Question.register(id: #{=id},
+  type: "radio_choices",
+  html: #{=question_radio_choices_html_code},
+  answer: #{=answer}
+)
 [#def}
