@@ -17,7 +17,7 @@ var send_dyndoc_cmd = function(content,id) {
 
 var send_cmd = function(cmd,id,content) {
   if (typeof(id)==='undefined') id = "";
-  else id = "#"+id;
+  else if(id != "") id = "#"+id;
   socket.send('__send_cmd__[['+cmd+id+']]__' + content + '__[[WS_END_TOKEN]]__');
 };
 

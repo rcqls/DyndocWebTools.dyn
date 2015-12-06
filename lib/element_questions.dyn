@@ -1,18 +1,34 @@
-{#def]QuestionRadioChoices[#,]id[][#,]question[][#,]choices[][#,]answer[]
+{#def]QuestionRadioChoices[#,]id[][#,]question[][#,]choices[][#,]answer[][#,]with_mathjax[false]
 [#%]answer could be an integer corresponding to the rank of the answer amoung the questions. Below is a correction
 [#?]#{=answer} =~ /^[1-9][0-9]*$/[#=]answer[q#{answer}][#?]end
-[#=]question_radio_choices_html_code[<div id="session_question" data-session-question-id="#{id}"><p>#{question}</p>]
+[#=]question_radio_choices_html_code[<div id="session_question" data-session-question-id="#{id}"><p>#{question}</p>
+<form>
+        <fieldset data-role="controlgroup" id="session_question_controlgroup">
+]
 [#rb<]
   (0...#{#choices}).each do |i| #
-    {#>][#+]question_radio_choices_html_code[<input type="radio" name="session-radio-question" value="q:{i+1}">#{choices.:{i}}</input><br/>][#>}
+    {#>][#+]question_radio_choices_html_code[<label><input type="radio" name="session-radio-question" value="q:{i+1}">#{choices.:{i}}</input></label>][#>}
   end
-[#>]question_radio_choices_html_code+[
+[#+]question_radio_choices_html_code[
+</fieldset>
+</form>
 </div>
+<script>]
+[#%]This is here! for admin view (which does not have js code below)!
+[#?]#{with_mathjax}[#+]question_radio_choices_html_code[
+  //console.log("mathjax update!");
+  MathJax.Hub.Queue(["Typeset", MathJax.Hub, "session_question"]);
+]
+[#?]end[#+]question_radio_choices_html_code[
+  $( "#session_question_controlgroup" ).controlgroup().trigger('create');
+</script>
+]
+[#=]question_radio_choices_js_code[
 <script>
 $('input[name=session-radio-question]').on('change',function () {
-        console.log("clicked");
+        //console.log("clicked");
         var id=$('input[name=session_id]').val();
-        console.log("id:"+id);
+        //console.log("id:"+id);
         var answer=$('input[type=radio][name=session-radio-question]:checked').val();
         var qid=$("#session_question").attr("data-session-question-id");
         //console.log("session "+ qid+ ":"+ answer + "checked");
@@ -21,12 +37,13 @@ $('input[name=session-radio-question]').on('change',function () {
 </script>
 ]
 [#<]{#LayoutLoad]
-[#js_header]jquery_cdnjs
+[#js_header]jquery_cdnjs:{#{with_mathjax} ? ",mathjax_cdnjs" : ""}
 [#}
 [#rb<]
 Question.register(id: #{=id},
   type: "radio_choices",
   html: #{=question_radio_choices_html_code},
+  js: #{=question_radio_choices_js_code},
   answer: #{=answer}
 )
 #p #{=question_radio_choices_html_code}

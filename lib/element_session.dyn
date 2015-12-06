@@ -1,13 +1,14 @@
-{#def]SessionLogin[#,]id[Session id][#,]user[Utilisateur id][#,]passwd[Mot de Passe][#,]info[Informations][#,]info2[Prénom, Nom, Email, ...][#,]login[Connectez-vous]
+{#def]SessionLogin[#,]id[Session id][#,]user[Utilisateur id][#,]passwd[Mot de Passe][#,]info[Informations][#,]info2[Prénom, Nom, Email, ...][#,]login[Connectez-vous][#,]question_form_add[true]
+[#rb<]Question.question_form_add if #{question_form_add}
 [#=]session_login_html_code[
 <div id="session_msg"></div>
-<input type="hidden" name="session_id" value="" />
+<input type="hidden" name="session_id" value=":{Question.current_question_form}" />
 <input type="hidden" name="session_passwd" value="" />
 <input type="hidden" name="session_user" value="" />
 <div id="session_login">
-    #{id}: <input type="text" id="session_id_login"/><br/>
-    #{user}: <input type="text" id="session_user_id_login"/><br/>
+    <!-- #{id}: <input type="text" id="session_id_login"/><br/> -->
     #{passwd}: <input type="text" id="session_passwd_login"/><br/>
+    #{user}: <input type="text" id="session_user_id_login"/><br/>
     #{info}: <input type="text" id="session_info_login" value="#{info2}"/><br/>
     <button id="session_submit_login">#{login}</button>
 </div>
@@ -17,8 +18,7 @@
 
       $(function () {
           $("#session_submit_login").click(function() {
-            var id=$("#session_id_login").val();
-            $('input[name=session_id]').val(id);
+            var id=$('input[name=session_id]').val();
             console.log("saved id:"+$('input[name=session_id]').val());
             var user=$("#session_user_id_login").val();
             var passwd=$("#session_passwd_login").val();
@@ -31,7 +31,8 @@
       });
 ]
 [#<]{#LayoutLoad]
-[#js_header]jquery_cdnjs
+[#css_header]jquery_mobile_cdnjs
+[#js_header]jquery_cdnjs,jquery_mobile_cdnjs
 [#}
 [#rb<]
 LayoutMngr << [:js_code_post,#{=session_login_js_code_post}]
@@ -40,18 +41,33 @@ LayoutMngr << [:js_code_post,#{=session_login_js_code_post}]
 
 {#def]SessionAdmin
 [#=]session_admin_html_code[
+<div id="session_msg"></div>
+<div id="session_admin_login">
+Admin passwd: <input id="session_passwd_login" type="password" value="password" /></div>
 <div id="session_list"></div>
 <div id="session_admin">
-    Session id: <input type="text" id="session_id_admin"/><br/>
+    Session id: <select id="session_id_admin"></select>
+    <!--input type="text" id="session_id_admin"/-->
+    <br/>
     Session passwd: <input type="text" id="session_passwd_admin"/><br/>
-    <button id="session_new_admin">New</button><button id="session_remove_admin">Remove</button><button id="session_ls_admin">Session list</button><br/><br/>
-    Question id: <input type="text" id="session_question_id_admin"/><br/>
-    <button id="session_question_show_admin">Question Show</button><button id="session_question_hide_admin">Question Hide</button>
+    <button id="session_new_admin">New</button><button id="session_remove_admin">Remove</button><button id="session_ls_admin">Session list</button><button id="session_reload_questions_admin">Questions reload</button><br/><br/>
+    Question id: <select id="session_question_id_admin"></select>
+    <!--input type="text" id="session_question_id_admin"/-->
+    <button id="session_question_show_admin">Show</button>
+    <div id="session_question_view"></div>
 </div>
 ]
 [#=]session_admin_js_code_post[
 
       $(function () {
+          $("#session_passwd_login").keypress(function(e) {
+            if(e && e.keyCode == 13) {
+              var passwd=$("#session_passwd_login").val();
+              //console.log("passwd:"+passwd);
+              send_cmd("session_admin_login","",passwd);
+            };
+          });
+
           $("#session_new_admin").click(function() {
             var id=$("#session_id_admin").val();
             var passwd=$("#session_passwd_admin").val();
@@ -65,23 +81,123 @@ LayoutMngr << [:js_code_post,#{=session_login_js_code_post}]
             var id=$("#session_id_admin").val();
             send_cmd("session_ls",id,"");
           });
+          $("#session_reload_questions_admin").click(function() {
+            var id=$("#session_id_admin").val();
+            send_cmd("session_reload",id, "");
+          });
+          $("#session_question_id_admin").change(function() {
+            var id=$("#session_id_admin").val();
+            var qid=$("#session_question_id_admin").val();
+            //console.log("session_admin_question_view:"+id+","+qid);
+            send_cmd("session_admin_question_view",id,qid);
+          });
           $("#session_question_show_admin").click(function() {
             var id=$("#session_id_admin").val();
             var qid=$("#session_question_id_admin").val();
             send_cmd("session_all_clients_element",id,"show,"+qid);
           });
-          $("#session_question_hide_admin").click(function() {
-            var id=$("#session_id_admin").val();
-            var qid=$("#session_question_id_admin").val();
-            send_cmd("session_all_clients_element",id,"hide,"+qid);
-          });
 
+          $("#session_admin").hide();
       });
 ]
 [#<]{#LayoutLoad]
-[#js_header]jquery_cdnjs
+[#js_header]jquery_cdnjs,mathjax_cdnjs
 [#}
 [#rb<]
+LayoutMngr << [:js_code_post,#{=session_admin_js_code_post}]
+[#>]#{session_admin_html_code}
+[#def}
+
+{#def]SessionAdminMobile
+[#=]session_admin_html_code[
+<div id="session_msg"></div>
+<div id="session_admin_login">
+    <h1 class="ui-bar ui-bar-a">Admin Login</h1>
+    <label>Admin passwd</label> <input id="session_passwd_login" type="password" value="password" />
+</div>
+
+<div id="session_admin">
+  <h1 class="ui-bar ui-bar-a">Session List</h1>
+  <div id="session_list"></div>
+
+<div data-role="collapsible" data-collapsed-icon="carat-d" data-expanded-icon="carat-u">
+  <h1>Current Session</h1>
+  <form>
+    <div class="ui-field-contain">
+      <label>Session id:</label> 
+      <select id="session_id_admin" data-mini="true" data-native-menu="false"></select>
+    </div>
+    <div class="ui-field-contain">
+      <label>Session passwd:</label> 
+      <input type="text" id="session_passwd_admin"/>
+    </div>
+    <div class="ui-field-contain">
+      <a id="session_new_admin" class="ui-btn ui-btn-inline">New</a><a id="session_remove_admin" class="ui-btn ui-btn-inline">Remove</a><a id="session_ls_admin" class="ui-btn ui-btn-inline">Session list</a><a id="session_reload_questions_admin" class="ui-btn ui-btn-inline">Questions reload</a>
+    </div>
+  </form>
+</div>
+<div data-role="collapsible" data-collapsed-icon="carat-d" data-expanded-icon="carat-u">
+  <h1>Current Questions</h1>
+  <form>
+     <div class="ui-field-contain">
+      <label>Question id:</label> 
+      <select id="session_question_id_admin" data-native-menu="false"></select>
+      <a id="session_question_show_admin" class="ui-btn ui-btn-inline">Show</a>
+    </div>
+  </form>
+  <div id="session_question_view"></div>
+</div>
+</div>
+]
+[#=]session_admin_js_code_post[
+
+      $(function () {
+          $("#session_passwd_login").keypress(function(e) {
+            if(e && e.keyCode == 13) {
+              var passwd=$("#session_passwd_login").val();
+              //console.log("passwd:"+passwd);
+              send_cmd("session_admin_login","",passwd);
+            };
+          });
+
+          $("#session_new_admin").click(function() {
+            var id=$("#session_id_admin").val();
+            var passwd=$("#session_passwd_admin").val();
+            send_cmd("session_new",id,passwd);
+          });
+          $("#session_remove_admin").click(function() {
+            var id=$("#session_id_admin").val();
+            send_cmd("session_remove",id,"");
+          });
+          $("#session_ls_admin").click(function() {
+            var id=$("#session_id_admin").val();
+            send_cmd("session_ls",id,"");
+          });
+          $("#session_reload_questions_admin").click(function() {
+            var id=$("#session_id_admin").val();
+            send_cmd("session_reload",id, "");
+          });
+          $("#session_question_id_admin").change(function() {
+            var id=$("#session_id_admin").val();
+            var qid=$("#session_question_id_admin").val();
+            //console.log("session_admin_question_view:"+id+","+qid);
+            send_cmd("session_admin_question_view",id,qid);
+          });
+          $("#session_question_show_admin").click(function() {
+            var id=$("#session_id_admin").val();
+            var qid=$("#session_question_id_admin").val();
+            send_cmd("session_all_clients_element",id,"show,"+qid);
+          });
+
+          $("#session_admin").hide();
+      });
+]
+[#<]{#LayoutLoad]
+[#css_header]jquery_mobile_cdnjs
+[#js_header]jquery_cdnjs,jquery_mobile_cdnjs,mathjax_cdnjs
+[#}
+[#rb<]
+LayoutMngr << [:js_code,#{=session_admin_init_js_code}]
 LayoutMngr << [:js_code_post,#{=session_admin_js_code_post}]
 [#>]#{session_admin_html_code}
 [#def}

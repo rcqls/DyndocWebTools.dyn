@@ -1,0 +1,8 @@
+[#=]js_header_mathjax_cdnjs[
+<script type="text/javascript"
+  src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+]
+[#rb<]p [:mathjax_register]
+[#rb>]
+LayoutMngr.register(:js_header, :mathjax_cdnjs, #{=js_header_mathjax_cdnjs})

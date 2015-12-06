@@ -1,5 +1,42 @@
-[#=]js_header_jquery_cdnjs[
+[#=]css_header[
+	<<jquery_mobile_cdnjs[
+<link rel="stylesheet" href="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+	]
+	<<jqtjs_jqtouch[
+	<style type="text/css" media="screen">@import "/tools/jqtjs/themes/css/jqtouch.css";</style>
+	]
+	<<jqtjs_apple[
+	<style type="text/css" media="screen">@import "/tools/jqtjs/themes/css/apple.css";</style>
+	]
+	<<jqtjs_vanilla[
+	<style type="text/css" media="screen">@import "/tools/jqtjs/themes/css/vanilla.css";</style>
+	]
+	<<jqtjs_innsbruck[
+	<style type="text/css" media="screen">@import "/tools/jqtjs/themes/css/innsbruck.css";</style>
+	]
+]
+[#=]js_header[
+	<<jquery_cdnjs[
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	]
+	<<zepto_cdnjs[
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.1.6/zepto.js"></script>
+	]
+	<<jquery_mobile_cdnjs[
+<script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	]
+	<<jqtjs[
+        <script src="/tools/jqtjs/src/jqt.js" type="text/javascript" charset="utf-8"></script>
+	]
 ]
 [#rb>]
-LayoutMngr.register(:js_header, :jquery_cdnjs, #{=js_header_jquery_cdnjs})
+LayoutMngr.register(:js_header, :jquery_cdnjs, #{=js_header.jquery_cdnjs})
+LayoutMngr.register(:js_header, :zepto_cdnjs, #{=js_header.zepto_cdnjs})
+LayoutMngr.register(:css_header, :jquery_mobile_cdnjs, #{=css_header.jquery_mobile_cdnjs})
+LayoutMngr.register(:js_header, :jquery_mobile_cdnjs, #{=js_header.jquery_mobile_cdnjs})
+LayoutMngr.register(:css_header, :jqtjs_jqtouch, #{=css_header.jqtjs_jqtouch})
+LayoutMngr.register(:css_header, :jqtjs_apple, #{=css_header.jqtjs_apple})
+LayoutMngr.register(:css_header, :jqtjs_vanilla, #{=css_header.jqtjs_vanilla})
+LayoutMngr.register(:css_header, :jqtjs_innsbruck, #{=css_header.jqtjs_innsbruck})
+LayoutMngr.register(:js_header, :jqtjs, #{=js_header.jqtjs})
+  
