@@ -1,0 +1,39 @@
+{#def]RSession[#,]code[][#,]client[true]
+[#?]#{client}[#R<]#{code}[#?]end
+[#rb<]
+code="open_cmd(\"[#R"+"<]"+#{=code}+"\");".gsub('\n','\\n')
+LayoutMngr << [:js_code_post,code]
+[#def}
+
+{#def]JQM4R-SelectMenu[#,]id[][#,]label[][#,]menuR[][#,]js[][#,]multi[false]
+[#=]select_menu_html[
+<div class="ui-field-contain">
+    <label for="select-menu-#{id}">#{label}</label>
+	<select name="select-menu-#{id}" id="select-menu-#{id}" data-native-menu="false" {#if]#{multi}[#>]multiple="multiple"[#} data-iconpos="left">
+	<option>Choose options</option>
+]
+[#R>]for(i in seq(#{menuR}$choices)) {
+	{#>][#+]select_menu_html[<option value=":r{i}">:r{#{menuR}$choices[i]}</option>][#}
+}
+[#+]select_menu_html[
+	</select>
+</div>
+]
+[#=]select_menu_js_post[
+$(function () {
+	$("#select-menu-#{id}").on('change',function () {
+		var sel=$("#select-menu-#{id}").val();
+		if(sel === null) sel="";
+		send_dyndoc_cmd("[#"+"R<]menuR$selected <- c("+sel+")");//no id!
+		#{js};
+	});
+});
+]
+[#<]{#LayoutLoad]
+[#css_header]jquery_mobile_cdnjs
+[#js_header]jquery_cdnjs,jquery_mobile_cdnjs
+[#}
+[#rb<]
+LayoutMngr << [:js_code_post,#{=select_menu_js_post}]
+[#>]#{select_menu_html}
+[#def}

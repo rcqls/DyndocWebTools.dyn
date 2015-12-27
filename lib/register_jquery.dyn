@@ -1,6 +1,6 @@
 [#=]css_header[
 	<<jquery_mobile_cdnjs[
-<link rel="stylesheet" href="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
 	]
 	<<jqtjs_jqtouch[
 	<style type="text/css" media="screen">@import "/tools/jqtjs/themes/css/jqtouch.css";</style>
@@ -23,7 +23,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.1.6/zepto.js"></script>
 	]
 	<<jquery_mobile_cdnjs[
-<script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	]
 	<<jqtjs[
         <script src="/tools/jqtjs/src/jqt.js" type="text/javascript" charset="utf-8"></script>

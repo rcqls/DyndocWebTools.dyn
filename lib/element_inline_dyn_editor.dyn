@@ -1,4 +1,5 @@
 {#def]DynEditor[#,]id[][#,]inline[true][#,]theme[monokai][#,]code[{#txt][#R>>]rnorm(20)[#}]
+[#rb<]dyneditor_code=#{=code}.gsub('"','\"')
 [#=]dyneditor_html_code[
     <pre id="dyn_editor_#{id}" style="margin:10px;width:50%;"></pre>
     <div id="dyn_content_#{id}" style="margin:10px;width:50%;"></div>
@@ -12,7 +13,7 @@
       });
       editor_#{id}.setTheme("ace/theme/#{theme}");
       editor_#{id}.session.setMode("ace/mode/dyndoc");
-      editor_#{id}.session.setValue("#{code}");
+      editor_#{id}.session.setValue(":{dyneditor_code}");
       editor_#{id}.setAutoScrollEditorIntoView(true);
       editor_#{id}.setOption("maxLines", 30);
 
@@ -53,3 +54,48 @@
 LayoutMngr << [:js_code_post,#{=dyneditor_js_code_post}]
 [#>]#{dyneditor_html_code}
 [#def}
+
+{#def]DynContentViewer[#,]id[][#,]code[{#txt][#R>>]rnorm(20)[#}]
+[#,]later[true]
+[#rb<]dyn_content_viewer_code=#{=code}.gsub('"','\"')
+[#=]dyn_content_viewer_html_code[
+    <input type="hidden" name="dyn_content_code_#{id}" value=":{dyn_content_viewer_code}" />
+    <div id="dyn_content_#{id}" style="margin:10px;width:50%;"></div>
+    {#if]#{later}[#>]<script>
+    send_dyndoc_cmd(":{dyn_content_viewer_code}","#dyn_content_#{id}");
+    </script>[#if}
+]
+[#=]dyn_content_viewer_js_code[
+  //This function allows to update the code! Useful for other object! "content" can be undefined if unchanged!
+    var dyn_content_viewer_update_code=function(id,content) {
+      if(typeof content !== 'undefined') {
+        $('input[name=dyn_content_code_'+id+']').val(content);
+      }
+      var code=$('input[name=dyn_content_code_'+id+']').val();
+      console.log("update:"+code);
+      send_dyndoc_cmd(code,"#dyn_content_"+id);
+    }
+    {#if]!#{later}[#>]
+    open_cmd(":{dyn_content_viewer_code}","#dyn_content_#{id}");
+    [#if}
+]
+[#<]{#LayoutLoad]
+[#css_header]uv_solarized
+[#}
+[#rb<]
+LayoutMngr << [:js_code,#{=dyn_content_viewer_js_code}]
+[#>]#{dyn_content_viewer_html_code}
+[#def}
+
+{#def]RContentViewer[#,]id[][#,]code[rnorm(20)]
+[#,]later[true]
+[#rb<]code="[#R"+">>]"+#{=code}
+[#>]{#DynContentViewer]#{id}[#code]:{code}[#}
+[#def}
+
+{#def]RFigViewer[#,]id[][#,]code[plot(rnorm(20))]
+[#,]later[true]
+[#rb<]code="[#"+">]{#img"+"]"+#{=code}+"["+"#}"
+[#>]{#DynContentViewer]#{id}[#code]:{code}[#}
+[#def}
+

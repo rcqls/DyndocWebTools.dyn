@@ -4,14 +4,28 @@ var Socket = window.MozWebSocket || window.WebSocket,
 protos = ['dyndoc', 'xmpp'],
 socket = new Socket('ws://#{addr}:#{port}/', protos);
 
+var dyndoc_startup_code={};
+
+//TODO: maybe need to run over dyndoc_startup_code keys to initialize any code!
 var open_cmd = function(cmd,id) {
+  add_startup_code(cmd,id);//This allows to add some further command and not only one command
   socket.addEventListener('open', function() {
-    send_dyndoc_cmd(cmd,id);
+    send_dyndoc_cmd(dyndoc_startup_code[id],id);
   });
+};
+
+var add_startup_code= function(cmd,id) {
+  //console.log("here:"+dyndoc_startup_code[id]);
+  if(typeof(dyndoc_startup_code[id]) === "undefined") {
+    dyndoc_startup_code[id]="";
+  }
+  dyndoc_startup_code[id]=dyndoc_startup_code[id]+cmd;
+  //console.log("here2:"+dyndoc_startup_code[id]);
 };
 
 var send_dyndoc_cmd = function(content,id) {
   if (typeof(id)==='undefined') id = "";
+  //console.log("content:"+content);
   socket.send('__send_cmd__[[dyndoc'+id+']]__' + content + '__[[WS_END_TOKEN]]__');
 };
 
@@ -55,6 +69,7 @@ socket.onmessage = function(event) {
 socket.onclose = function(event) {
   console.log('CLOSE: ' + event.code + ', ' + event.reason);
 };
+
 ]
 [#rb<]
 LayoutMngr << [:js_code,#{=ws_js_code}]

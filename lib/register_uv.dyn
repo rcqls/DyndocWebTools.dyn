@@ -2,6 +2,6 @@
 	 css_header_uv='<link href="http://sagag6.upmf-grenoble.fr/stylesheets/uv/css/'+style.to_s+'.css" media="screen,projection,print" rel="Stylesheet" type="text/css" />'
 	LayoutMngr.register(:css_header,"sagag6_uv_"+style.to_s,css_header_uv)
 
-	css_header_uv='<link href="tools/uv/'+style.to_s+'.css" media="screen,projection,print" rel="Stylesheet" type="text/css" />'
+	css_header_uv='<link href="/tools/uv/'+style.to_s+'.css" media="screen,projection,print" rel="Stylesheet" type="text/css" />'
 	LayoutMngr.register(:css_header,"uv_"+style.to_s,css_header_uv)
 end
