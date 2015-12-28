@@ -51,8 +51,8 @@ class Question
 		if dir
 			@@session_dir=dir
 			root=dir.dup
-            root=File.expand_path(File.join(root,"..")) until File.exist? File.join(root,"admin")
-            Question.session_root_dir(root) if root
+            root=File.expand_path(File.join(root,"..")) until File.exist? File.join(root,"admin") or root=="/"
+            Question.session_root_dir(root) if root and root != "/"
             p [:dirs,@@session_dir,@@session_root_dir]
 		else
 			@@session_dir
