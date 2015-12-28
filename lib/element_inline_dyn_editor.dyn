@@ -82,6 +82,7 @@ LayoutMngr << [:js_code_post,#{=dyneditor_js_code_post}]
 [#<]{#LayoutLoad]
 [#css_header]uv_solarized
 [#}
+{#ReactiveElementUpdateRegister]#{id}[#jscall]dyn_content_viewer_update_code[#}
 [#rb<]
 LayoutMngr << [:js_code,#{=dyn_content_viewer_js_code}]
 [#>]#{dyn_content_viewer_html_code}
@@ -98,4 +99,14 @@ LayoutMngr << [:js_code,#{=dyn_content_viewer_js_code}]
 [#rb<]code="[#"+">]{#img"+"]"+#{=code}+"["+"#}"
 [#>]{#DynContentViewer]#{id}[#code]:{code}[#}
 [#def}
+
+{#def]RSrvEcho[#,]id[][#,]code[rnorm(20)]
+[#>]{#RContentViewer]#{id}[#later]false[#}
+[#def}
+
+{#def]RSrvFig[#,]id[][#,]code[plot(rnorm(20))]
+[#>]{#RFigViewer]#{id}[#later]false[#}
+[#def}
+
+
 

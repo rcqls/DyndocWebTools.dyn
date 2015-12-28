@@ -1,0 +1,17 @@
+This is a slight system to register update of reactive elements
+
+{#def]ReactiveElementUpdateRegister[#,]id[][#,]jscall[]
+[#rb<]
+$element_update_register = {} unless $element_update_register
+$element_update_register[#{=id}.strip]=#{=jscall}.strip
+[#def}
+
+{#def]ReactiveElementUpdate[#,]ids[][#rb>]
+(#{=ids}.strip.split(",")).each { |k| #
+	k2=k.strip
+	if($element_update_register[k2])
+		{#>]:{$element_update_register[k2]}(":{k2}");[#>} 
+	end
+}
+[#def}
+
