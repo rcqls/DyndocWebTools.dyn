@@ -1,14 +1,17 @@
+## JQM Page
 
 {#def]jqmPage[#,]id[]
 [#,]page[<<title[]<<class[]]
-[#,]header[<<title[]<<position[fixed]<<fullscreen[false]]
-[#,]footer[<<title[]<<position[fixed]<<fullscreen[false]]
-[#>]<div data-role="page"{#if]#{+?page.class}[#>] class="#{page.class}"[#if} id="#{id}"{#if]#{+?page.title}[#>] data-title="#{page.title}"[#if}>
+[#,]header[<<title[]<<position[fixed]<<fullscreen[false]<<left[]<<right[]]
+[#,]footer[<<title[]<<position[fixed]<<fullscreen[false]<<left[]<<right[]]
+[#>]<div data-role="page"{#if]#{+?page.class}[#>] class="#{page.class}"[#if} id=":{#{=id}.strip}"{#if]#{+?page.title}[#>] data-title="#{page.title}"[#if}>
+[#yield]panel
 [#?]#{+?header.title}[#>]<div data-role="header" data-position="#{header.position}" data-fullscreen="#{header.fullscreen}">
-  <h1>#{page.title}</h1>
+  #{header.left}
+  <h1>#{header.title}</h1>
+  #{header.right}
 </div><!-- /header -->
 [#?]end
-[#yield]panel
 [#yield]header[#%]Use variable header.title or block header but generally not both
 [#>]
 <div role="main" class="ui-content">
@@ -17,15 +20,63 @@
 [#>]</div><!-- /content -->
 [#?]#{+?footer.title}[#>]
 <div data-role="footer" data-position="#{footer.position}" data-fullscreen="#{footer.fullscreen}">
+  #{footer.left}
   <h4>#{footer.title}</h4>
+  #{footer.right}
 </div><!-- /footer -->
 [#?]end
 [#yield]footer[#%]Use variable footer.title or block footer but generally not both
 [#>]</div><!-- /page -->
 [#def}
 
+## JQM Panel
+
 {#def]jqmPanel[#,]id[]
-[#>]<div data-role="panel" id="#{id}">
+[#>]<div data-role="panel" id=":{#{=id}.strip}">
 [#yield]default
 [#>]</div><!-- /panel -->
+[#def}
+
+{#def]jqmBackToolBar[#,]href[][#,]content[Back][#,]rel[back]
+[#,]class[ui-btn ui-btn-left ui-alt-icon ui-nodisc-icon ui-corner-all ui-btn-icon-notext ui-icon-carat-l]
+<a href="#{href}" data-rel="#{data.rel}" class="#{class}">#{content}</a>
+[#def}
+
+{#def]jqmHeaderButton[#,]href[][#,]content[][#,]data[<<icon[bars]<<iconpos[notext]]
+[#>]<a href="##{href}" data-icon="#{data.icon}" data-iconpos="#{data.iconpos}">#{content}</a>
+[#def}
+
+## JQM Menu ListView
+
+links of the form:
+  link1:content1(attr1.li:attr1.a)|link2:content2(attr2.li:attr2.a)
+  link3:content3(attr3.li:attr3.a)
+  link4:content4(attr4.li:attr4.a)
+  ...
+
+{#def]jqmMenuListView[#,]links[][#,]close[Close menu]
+[#>]
+<ul data-role="listview">
+  {#if]#{+?close}[#>]<li data-icon="delete"><a href="#" data-rel="close">#{close}</a></li>[#if}
+[#rb>]
+  links=#{=links}.strip.split(/[\|\n]/)
+  links.each do |e| #
+    elt,attrib=e.dup,nil
+    if elt =~ /^([^\(]*)\(([^\(\)]*)\)$/
+      elt=$1
+      attrib=$2
+    end
+    k,*v=elt.split(":")
+    k.strip!
+    v=v.join(":").strip
+
+    if attrib
+      tmp=attrib.split(":",-1)
+      attrib={li: tmp[0], a: tmp[1]}
+    else
+      attrib={li: "", a: ""}
+    end
+    {#>]<li :{attrib[:li]}><a href="#:{k}" :{attrib[:a]}>:{v}</a></li>[#nl][#>}
+  end
+[#>]</ul>
 [#def}
