@@ -1,0 +1,25 @@
+{#newBlck]jqmGrid
+[#blck]:pre[#rb<]cache(elts: [], ncols: [])
+[#blck]ncol[#do_code]cache[:ncols] << blckMngr.parse.strip.to_i
+[#blck]elt[#do_code]cache[:elts] << blckMngr.parse
+[#blck]:post
+[#rb<]elts,ncols=cache[:elts],cache[:ncols]
+coltypes=["solo","a","b","c","d"]
+blocktypes=["a","b","c","d","e"]
+if ncols.length == 1 and elts.length % ncols[0] == 0
+  ncols = ncols * (elts.length / ncols[0])
+end
+Dyndoc.warn :res,[elts,ncols]
+[#rb>]
+i=-1
+ncols.each do |ncol| #
+  coltype=coltypes[ncol-1]
+  {#>]<div class="ui-grid-:{coltype} ui-responsive">[#>}
+  (0...ncol).each do |j| #
+    blocktype=blocktypes[j]
+    elt=elts[i+=1]
+    {#>]<div class="ui-block-:{blocktype}">:{elt}</div>[#>}
+  end
+  {#>]</div>[#>}
+end
+[#newBlck}

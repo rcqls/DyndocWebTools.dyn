@@ -60,15 +60,15 @@ class LayoutMngr
 		#puts "#{type} #{id} registered!"
 	end
 
-	# Important: 
-	# => arg is Array : arg[1] is a String representing code to import as is! 
+	# Important:
+	# => arg is Array : arg[1] is a String representing code to import as is!
 	#    ex: [:css_header, ".ace_editor {\nborder: 1px solid lightgray;\n}\n"]
 	# => arg is Symbol: arg[1] is the id related to @regs
 	#    ex: css_header:ace
-	def <<(arg) 
+	def <<(arg)
 		if arg.is_a? Array and [:css_code,:js_code,:js_code_post].include? arg[0].to_sym
 			@ids[arg[0].to_sym] << arg[1].to_s.strip
-		elsif arg.is_a? String 
+		elsif arg.is_a? String
 			opt=arg.split(":")
 			@ids[opt[0].to_sym] << opt[1].to_sym
 		end
@@ -107,8 +107,8 @@ class LayoutMngr
 			@ids[:js_code_post].uniq.each do |id|
 				content << ((id.is_a? Symbol) ? @regs[:js_code_post][id] : id)
 			end
-			content << '</script>'
 		end
+		content << '</script>'
 		return content.join("\n")
 	end
 end

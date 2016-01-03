@@ -1,0 +1,18 @@
+{#def]jqmButton[#,]id[][#,]content[][#,]href[][#,]class[ui-btn][#,]data[<<icon[gear]<<iconpos[right]<<theme[b]<<mini[true]<<inline[true]][#,]js[]
+[#>][<button{#if]#{+?id}[#>] id=":{#{=id}.strip}"[#if}{#if]#{+?href}[#>] href="#:{#{=href}.strip}"[#if} class="#{class}" data-icon="#{data.icon}" data-theme="#{data.theme}" data-iconpos="#{data.iconpos}" data-mini="#{data.mini}" data-inline="#{data.inline}">#{content}</button>]
+[#?]#{+?js}[#rb<]
+[#def}
+
+{#def]jqmLink[#,]href[][#,]content[][#,]class[ui-btn  ui-corner-all]
+[#>][<a href="##{href}" class="#{class}">#{content}</a>]
+[#def}
+
+{#def]jqmBackToolBar[#,]href[][#,]content[Back][#,]rel[back]
+[#,]class[ui-btn ui-btn-left ui-alt-icon ui-nodisc-icon ui-corner-all ui-btn-icon-notext ui-icon-carat-l]
+[#>][<a href="#{href}" data-rel="#{data.rel}" class="#{class}">#{content}</a>]
+[#def}
+
+## To put inside Header (the first on the left side and the second on the right side
+{#def]jqmHeaderButton[#,]href[][#,]content[][#,]data[<<icon[bars]<<iconpos[notext]]
+[#>][<a href="##{href}" data-icon="#{data.icon}" data-iconpos="#{data.iconpos}">#{content}</a>]
+[#def}
