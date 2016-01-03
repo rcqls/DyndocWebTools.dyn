@@ -1,0 +1,70 @@
+{#def]jqmForm[#,]data-role[listview]
+[#>]<form><ul data-role="#{data-role}" data-inset="true">
+[#yield]default
+[#>]</ul></form>
+[#def}
+
+{#def]jqmInput[#,]id[][#,]title[]
+[#>][<li class="ui-field-contain">
+    <label for="#{id}">#{title}</label>
+    <input type="text" name="#{id}" id="#{id}" value="" data-clear-btn="true">
+</li>]
+[#def}
+
+{#def]jqmTextArea[#,]id[][#,]title[][#,]cols[40][#,]rows[8]
+[#>][<li class="ui-field-contain">
+    <label for="#{id}">#{title}</label>
+    <textarea cols="#{cols}" rows="#{rows}" name="#{id}" id="#{id}"></textarea>
+</li>]
+[#def}
+
+{#def]jqmFlip[#,]id[][#,]title[][#,]on[<<value[on]<<title[On]][#,]off[<<value[off]<<title[Off]]
+[#>][<li class="ui-field-contain">
+    <label for="#{id}">#{title}</label>
+    <select name="#{id}" id="#{id}" data-role="slider">
+        <option value="#{off.val}">#{off.title}</option>
+        <option value="#{on.val}">#{on.title}</option>
+    </select>
+</li>]
+[#def}
+
+{#def]jqmSlider[#,]id[][#,]title[][#,]value[<<current[0]<<min[0]<<max[100]]
+[#>][<li class="ui-field-contain">
+    <label for="#{id}">#{title}</label>
+    <input type="range" name="#{id}" id="#{id}" value="#{value.current}" min="#{value.min}" max="#{value.max}" data-highlight="true">
+</li>]
+[#def}
+
+{#def]jqmSelectChoice[#,]id[][#,]title[][#,]choices[][#,]native[false]
+[#>]<li class="ui-field-contain">
+  <label for="#{id}">#{title}</label>
+  <select name="#{id}" id="#{id}" data-native-menu="#{native}">
+[#rb>]choices=#{=choices}.strip.split(/[\|\n]/)
+choices.each do |e| #
+  key,val=e.dup.strip,nil
+  if key =~ /^([^\(]*)\(([^\(\)]*)\)$/
+    key=$1.strip
+    val=$2
+  end
+  {#>]    <option value=":{key}">:{val}</option>[#nl][#>}
+end
+[#>][  </select>
+</li>]
+[#def}
+
+{#def]jqmButtonSet[#,]id[][#,]nb[2][#,]title[Cancel,Submit][#,]js[]
+[#>]<li class="ui-body ui-body-a">
+[#rb<]nb=#{nb}
+type=["solo","a","b","c","d"][nb-1]
+titles=#{=title}.split(",").map{|e| e.strip}
+[#>]  <fieldset class="ui-grid-:{type}">
+[#rb>]
+(0...nb).each do |i| #
+  bl=["a","b","c","d","e"][i]
+  id=#{=id}.strip+"-"+bl
+  {#>]    <div class="ui-block-:{bl}" id=":{id}"><button type="button" class="ui-btn ui-corner-all ui-btn-a">:{titles[i]}</button></div>[#nl][#>}
+end
+[#>][  </fieldset>
+</li>]
+[#?]#{+?js}[#rb<]LayoutMngr << [:js_post_code,#{=js}]
+[#def}
