@@ -4,6 +4,7 @@
 [#,]page[<<title[]<<class[]]
 [#,]header[<<title[]<<position[fixed]<<fullscreen[false]<<left[]<<right[]]
 [#,]footer[<<title[]<<position[fixed]<<fullscreen[false]<<left[]<<right[]]
+[#?]#{0?page.title}[#=]page.title[#{header.title}][#?]end
 [#>]<div data-role="page"{#if]#{+?page.class}[#>] class="#{page.class}"[#if} id=":{#{=id}.strip}"{#if]#{+?page.title}[#>] data-title="#{page.title}"[#if}>
 [#yield]panel
 [#?]#{+?header.title}[#>]<div data-role="header" data-position="#{header.position}" data-fullscreen="#{header.fullscreen}">
