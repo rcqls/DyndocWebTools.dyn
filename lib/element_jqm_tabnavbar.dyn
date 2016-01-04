@@ -50,11 +50,11 @@ end
 [#rb<]ntabs=#{#tabs}
 tabs=[]
 (0...ntabs).each do |i| #
-  href=@vars.extract("tabs."+i.to_s+".href").strip
+  href=extract_var("tabs."+i.to_s+".href").strip
   id=(href =~ /\.html$/ ? nil : href )
   href="#"+href if id
-  title=@vars.extract("tabs."+i.to_s+".title")
-  body=@vars.extract("tabs."+i.to_s+".content")
+  title=extract_var("tabs."+i.to_s+".title")
+  body=extract_var("tabs."+i.to_s+".content")
   tabs << {href: href, id: id, title: title, body: body}
 end
 [#>]<div data-role="navbar"><ul>

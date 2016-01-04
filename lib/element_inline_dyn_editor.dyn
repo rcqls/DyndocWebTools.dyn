@@ -18,7 +18,7 @@
       editor_#{id}.setOption("maxLines", 30);
 
       $(function () {
-          
+
           $("#dyn_content_#{id}").dblclick(function(e) {
             $("#dyn_content_#{id}").hide();
             $("#dyn_editor_#{id}").show();
@@ -107,6 +107,3 @@ LayoutMngr << [:js_code,#{=dyn_content_viewer_js_code}]
 {#def]RSrvFig[#,]id[][#,]code[plot(rnorm(20))]
 [#>]{#RFigViewer]#{id}[#later]false[#}
 [#def}
-
-
-

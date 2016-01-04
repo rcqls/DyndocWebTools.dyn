@@ -1,13 +1,13 @@
-{#def]jqmForm[#,]data-role[listview]
-[#>]<form><ul data-role="#{data-role}" data-inset="true">
+{#def]jqmForm[#,]id[][#,]data-role[listview]
+[#>]<form><ul data-role="#{data-role}" id=":{#{=id}.strip}" data-inset="true">
 [#yield]default
 [#>]</ul></form>
 [#def}
 
-{#def]jqmInput[#,]id[][#,]title[]
+{#def]jqmInput[#,]id[][#,]title[][#,]type[text]
 [#>][<li class="ui-field-contain">
     <label for="#{id}">#{title}</label>
-    <input type="text" name="#{id}" id="#{id}" value="" data-clear-btn="true">
+    <input type="#{type}" name="#{id}" id="#{id}" value="" data-clear-btn="true">
 </li>]
 [#def}
 
@@ -22,8 +22,8 @@
 [#>][<li class="ui-field-contain">
     <label for="#{id}">#{title}</label>
     <select name="#{id}" id="#{id}" data-role="slider">
-        <option value="#{off.val}">#{off.title}</option>
-        <option value="#{on.val}">#{on.title}</option>
+        <option value="#{off.value}">#{off.title}</option>
+        <option value="#{on.value}">#{on.title}</option>
     </select>
 </li>]
 [#def}
@@ -52,19 +52,38 @@ end
 </li>]
 [#def}
 
-{#def]jqmButtonSet[#,]id[][#,]nb[2][#,]title[Cancel,Submit][#,]js[]
+{#def]jqmButtonSet[#,]id[][#,]nb[2][#,]title[Cancel,Submit][#,]on.click[][#,]react[]
 [#>]<li class="ui-body ui-body-a">
 [#rb<]nb=#{nb}
 type=["solo","a","b","c","d"][nb-1]
 titles=#{=title}.split(",").map{|e| e.strip}
+on_click=[]
 [#>]  <fieldset class="ui-grid-:{type}">
 [#rb>]
 (0...nb).each do |i| #
   bl=["a","b","c","d","e"][i]
   id=#{=id}.strip+"-"+bl
+  res,js,react={id: id},nil,nil
+  res[:js]=js if (js=extract_var("on.click."+bl))
+  res[:react]=react if (react=extract_var(key="react."+bl))
+  on_click << res if js or react
   {#>]    <div class="ui-block-:{bl}" id=":{id}"><button type="button" class="ui-btn ui-corner-all ui-btn-a">:{titles[i]}</button></div>[#nl][#>}
 end
+Dyndoc.warn "on-click",on_click
 [#>][  </fieldset>
 </li>]
-[#?]#{+?js}[#rb<]LayoutMngr << [:js_post_code,#{=js}]
+[#=]js_code_post[$( document ).on( "pagecreate", function() {]
+[#rb<]on_click.each do |h| #
+
+	{#<][#+]js_code_post[
+    $(document).on('click',"#:{h[:id]}",function () {
+    {#if]:{!h[:js].nil?}[#>]:{h[:js]};[#if}
+    {#if]:{!h[:react].nil?}[#>]{#ReactiveElementUpdate]:{h[:react]}[#}[#if}
+  });][#<}
+
+end
+
+[#+]js_code_post[
+});]
+[#rb<]LayoutMngr << [:js_code,#{=js_code_post}]
 [#def}

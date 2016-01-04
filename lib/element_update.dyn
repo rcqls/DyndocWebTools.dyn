@@ -9,9 +9,8 @@ $element_update_register[#{=id}.strip]=#{=jscall}.strip
 {#def]ReactiveElementUpdate[#,]ids[][#rb>]
 (#{=ids}.strip.split(",")).each { |k| #
 	k2=k.strip
-	if($element_update_register[k2])
-		{#>]:{$element_update_register[k2]}(":{k2}");[#>} 
+	if($element_update_register && $element_update_register[k2])
+		{#>]:{$element_update_register[k2]}(":{k2}");[#>}
 	end
 }
 [#def}
-
