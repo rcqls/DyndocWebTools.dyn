@@ -124,11 +124,11 @@ LayoutMngr << [:js_code_post,#{=session_admin_js_code_post}]
   <h1>Current Session</h1>
   <form>
     <div class="ui-field-contain">
-      <label>Session id:</label> 
+      <label>Session id:</label>
       <select id="session_id_admin" data-mini="true" data-native-menu="false"></select>
     </div>
     <div class="ui-field-contain">
-      <label>Session passwd:</label> 
+      <label>Session passwd:</label>
       <input type="text" id="session_passwd_admin"/>
     </div>
     <div class="ui-field-contain">
@@ -140,7 +140,7 @@ LayoutMngr << [:js_code_post,#{=session_admin_js_code_post}]
   <h1>Current Questions</h1>
   <form>
      <div class="ui-field-contain">
-      <label>Question id:</label> 
+      <label>Question id:</label>
       <select id="session_question_id_admin" data-native-menu="false"></select>
       <a id="session_question_show_admin" class="ui-btn ui-btn-inline">Show</a>
     </div>

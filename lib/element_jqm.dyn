@@ -32,8 +32,8 @@
 
 ## JQM Panel
 
-{#def]jqmPanel[#,]id[][#,]theme[a]
-[#>]<div data-role="panel" id=":{#{=id}.strip}" {#if]#{+?theme}[#>]data-theme="#{theme}"[#if}>
+{#def]jqmPanel[#,]id[][#,]theme[a][#,]position[left][#,]display[reveal]
+[#>]<div data-role="panel" id=":{#{=id}.strip}" data-position="#{position}" data-display="#{display}" {#if]#{+?theme}[#>]data-theme="#{theme}"[#if}>
 [#yield]default
 [#>]</div><!-- /panel -->
 [#def}
