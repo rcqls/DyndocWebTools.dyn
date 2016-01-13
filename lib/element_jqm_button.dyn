@@ -1,6 +1,14 @@
 {#def]jqmButton[#,]id[][#,]content[][#,]href[][#,]class[ui-btn][#,]data[<<icon[gear]<<iconpos[right]<<theme[b]<<mini[true]<<inline[true]][#,]js[]
 [#>][<button{#if]#{+?id}[#>] id=":{#{=id}.strip}"[#if}{#if]#{+?href}[#>] href="#:{#{=href}.strip}"[#if} class="#{class}" data-icon="#{data.icon}" data-theme="#{data.theme}" data-iconpos="#{data.iconpos}" data-mini="#{data.mini}" data-inline="#{data.inline}">#{content}</button>]
-[#?]#{+?js}[#rb<]
+[#?]#{+?js}
+[#=]js_code_post[
+$( document ).on( "pagecreate", function() {
+    $(document).on('click',"##{id}",function () {
+    #{js};
+    });
+});
+]
+[#rb<]LayoutMngr << [:js_code,#{=js_code_post}]
 [#def}
 
 {#def]jqmLink[#,]href[][#,]content[][#,]class[ui-btn  ui-corner-all]
