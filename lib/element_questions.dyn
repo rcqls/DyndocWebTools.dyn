@@ -1,4 +1,5 @@
 {#def]QuestionRadioChoices[#,]id[][#,]question[][#,]choices[][#,]answer[][#,]with_mathjax[false]
+[#=]session-id[:{Question.current_question_form}]
 [#%]answer could be an integer corresponding to the rank of the answer amoung the questions. Below is a correction
 [#?]#{=answer} =~ /^[1-9][0-9]*$/[#=]answer[q#{answer}][#?]end
 [#=]question_radio_choices_html_code[<div id="session_question" data-session-question-id="#{id}"><p>#{question}</p>
@@ -27,11 +28,12 @@
 <script>
 $('input[name=session-radio-question]').on('change',function () {
         //console.log("clicked");
-        var id=$('input[name=session_id]').val();
+        var id="#{session-id}";
         //console.log("id:"+id);
         var answer=$('input[type=radio][name=session-radio-question]:checked').val();
         var qid=$("#session_question").attr("data-session-question-id");
-        //console.log("session "+ qid+ ":"+ answer + "checked");
+        //
+        console.log("session "+ qid+ ":"+ answer + "checked");
         send_cmd("session_answer",id,qid+"|"+answer);
 });
 </script>

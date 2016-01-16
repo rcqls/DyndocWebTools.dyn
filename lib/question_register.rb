@@ -25,7 +25,7 @@ class Question
 		@@question_form << @@current_question_form.strip
 		@@question_form.uniq!
 		# check if some forms are not orphaned!
-		@@question_form.select!{|dir| 
+		@@question_form.select!{|dir|
 			File.exist? File.join(Question.session_root_dir,dir)
 		}
 		# save the form index
@@ -35,6 +35,7 @@ class Question
 	end
 
 	def Question.current_question_form
+		@@current_question_form=Pathname(Question.session_dir).relative_path_from(Pathname(Question.session_root_dir)).to_s unless @@current_question_form
 		@@current_question_form
 	end
 
@@ -73,7 +74,7 @@ class Question
 	end
 
 	# question with form: {id: , question: "", type: "", answer: "", html: , ...}
-	# 
+	#
 	def register(question)
 		id=question[:id]
 		@ids << id

@@ -39,7 +39,7 @@ var get_content = function(res) {
   var data=res.split('__[[WS_END_TOKEN]]__');
   last=data.pop();
   result = data.join("");
-  regexp = /^__send_cmd__\[\[([a-zA-Z0-9_]*)(\#[^\]]*)?\]\]__([\s\S]*)/m;
+  regexp = /^__send_cmd__\[\[([a-zA-Z0-9_]*)((?:\#|\:)[^\]]*)?\]\]__([\s\S]*)/m;
   res = result.match(regexp);
   if(res[1] === "dyndoc") {
     if(typeof(res[2]) === "undefined") {
@@ -49,17 +49,20 @@ var get_content = function(res) {
     }
   } else if( res[1].substring(0, 7) === "jquery_" ) {
     var cmd=res[1].substring(7);
-    if(typeof(res[2]) === "undefined") { //no # in the second part of the cmd
-      $[cmd](res[3]);
+    if(cmd.substring(0,5) === "json_") {//json arguments
+      cmd=cmd.substring(5);
+      if(res[2] === "" || (typeof(res[2]) === "undefined")) { //no # in the second part of the cmd
+        $[cmd].apply(null,JSON.parse(res[3])); //$["notify"].apply(null,JSON.parse('[{"title": "ti","message": "hello"},{"delay": 500,"placement": {"from": "top","align": "center"} }]'));
+      } else {
+        var obj=$(res[2]);
+        obj[cmd].apply(obj,JSON.parse(res[3]));
+      }
     } else {
-      $(res[2])[cmd](res[3]); //call of function by name!
-    }
-  } else if(res[1].substring(0, 11) === "jqueryJSON_") {//arguments is passed by JSON
-    var cmd=res[1].substring(11);
-    if(typeof(res[2]) === "undefined") { //no # in the second part of the cmd
-      $[cmd].apply(null,JSON.parse(res[3])); //$["notify"].apply(null,JSON.parse('[{"title": "ti","message": "hello"},{"delay": 500,"placement": {"from": "top","align": "center"} }]'));
-    } else {
-      $(res[2])[cmd].apply(null,JSON.parse(res[3]));
+      if(typeof(res[2]) === "undefined") { //no # in the second part of the cmd
+        $[cmd](res[3]);
+      } else {
+        $(res[2])[cmd](res[3]); //call of function by name!
+      }
     }
   }
 };
@@ -80,7 +83,6 @@ socket.onmessage = function(event) {
 socket.onclose = function(event) {
   console.log('CLOSE: ' + event.code + ', ' + event.reason);
 };
-
 ]
 [#rb<]
 LayoutMngr << [:js_code,#{=ws_js_code}]

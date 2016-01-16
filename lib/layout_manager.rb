@@ -35,6 +35,7 @@ class LayoutMngr
 	end
 
 	def LayoutMngr.js_post
+		##Dyndoc.warn :js_post,@@layoutMngr.js_post
 		@@layoutMngr.js_post
 	end
 

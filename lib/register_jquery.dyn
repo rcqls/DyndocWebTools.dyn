@@ -2,6 +2,9 @@
 	<<jquery_mobile_cdnjs[
 <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
 	]
+	<<jquery_mobile_datepicker[
+<link rel="stylesheet" href="https://rawgithub.com/arschmitz/jquery-mobile-datepicker-wrapper/master/jquery.mobile.datepicker.css" />
+	]
 	<<jqtjs_jqtouch[
 	<style type="text/css" media="screen">@import "/tools/jqtjs/themes/css/jqtouch.css";</style>
 	]
@@ -25,6 +28,19 @@
 	<<jquery_mobile_cdnjs[
 <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	]
+	<<jquery_mobile_datepicker[
+<script src="https://rawgithub.com/jquery/jquery-ui/1-10-stable/ui/jquery.ui.datepicker.js"></script>
+<script src="https://rawgithub.com/arschmitz/jquery-mobile-datepicker-wrapper/master/jquery.mobile.datepicker.js"></script>
+	]
+	<<jquery_formatter[
+	<script src="https://rawgithub.com/firstopinion/formatter.js/master/dist/jquery.formatter.js"></script>
+	]
+	<<jquery_validation[
+	<script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+	]
+	<<jquery_validation_add[
+	<script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/additional-methods.min.js"></script>
+	]
 	<<jqtjs[
         <script src="/tools/jqtjs/src/jqt.js" type="text/javascript" charset="utf-8"></script>
 	]
@@ -34,9 +50,13 @@ LayoutMngr.register(:js_header, :jquery_cdnjs, #{=js_header.jquery_cdnjs})
 LayoutMngr.register(:js_header, :zepto_cdnjs, #{=js_header.zepto_cdnjs})
 LayoutMngr.register(:css_header, :jquery_mobile_cdnjs, #{=css_header.jquery_mobile_cdnjs})
 LayoutMngr.register(:js_header, :jquery_mobile_cdnjs, #{=js_header.jquery_mobile_cdnjs})
+LayoutMngr.register(:css_header, :jquery_mobile_datepicker, #{=css_header.jquery_mobile_datepicker})
+LayoutMngr.register(:js_header, :jquery_mobile_datepicker, #{=js_header.jquery_mobile_datepicker})
+LayoutMngr.register(:js_header, :jquery_formatter, #{=js_header.jquery_formatter})
+LayoutMngr.register(:js_header, :jquery_validation, #{=js_header.jquery_validation})
+LayoutMngr.register(:js_header, :jquery_validation_add, #{=js_header.jquery_validation_add})
 LayoutMngr.register(:css_header, :jqtjs_jqtouch, #{=css_header.jqtjs_jqtouch})
 LayoutMngr.register(:css_header, :jqtjs_apple, #{=css_header.jqtjs_apple})
 LayoutMngr.register(:css_header, :jqtjs_vanilla, #{=css_header.jqtjs_vanilla})
 LayoutMngr.register(:css_header, :jqtjs_innsbruck, #{=css_header.jqtjs_innsbruck})
 LayoutMngr.register(:js_header, :jqtjs, #{=js_header.jqtjs})
-  
