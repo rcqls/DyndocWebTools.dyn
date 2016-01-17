@@ -4,7 +4,7 @@ var Socket = window.MozWebSocket || window.WebSocket,
 protos = ['dyndoc', 'xmpp'],
 socket = new Socket('ws://#{addr}:#{port}/', protos);
 
-var dyndoc_startup_code={};
+var dyndoc_startup_code={},dyndoc_exec_code={};
 
 //TODO: maybe need to run over dyndoc_startup_code keys to initialize any code!
 var open_cmd = function(cmd,id) {
@@ -21,6 +21,16 @@ var add_startup_code= function(cmd,id) {
   }
   dyndoc_startup_code[id]=dyndoc_startup_code[id]+cmd;
   //console.log("here2:"+dyndoc_startup_code[id]);
+};
+
+var register_dyndoc_exec_code =function(cmd,id) {
+  dyndoc_exec_code[id]=cmd;
+  console.log("register_dyndoc_exec_code-> id:"+id +" & code:"+dyndoc_exec_code[id]);
+};
+
+var send_dyndoc_exec_code = function(id) {
+  console.log("send_dyndoc_exec_code-> id:"+id +" & code:"+dyndoc_exec_code[id]);
+  send_dyndoc_cmd(dyndoc_exec_code[id],id);
 };
 
 var send_dyndoc_cmd = function(content,id) {

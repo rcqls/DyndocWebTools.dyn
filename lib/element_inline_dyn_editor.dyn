@@ -59,7 +59,7 @@ LayoutMngr << [:js_code_post,#{=dyneditor_js_code_post}]
 [#,]later[true]
 [#rb<]dyn_content_viewer_code=#{=code}.gsub('"','\"')
 [#=]dyn_content_viewer_html_code[
-    <input type="hidden" name="dyn_content_code_#{id}" value=":{dyn_content_viewer_code}" />
+    <!--input type="hidden" name="dyn_content_code_#{id}" value=":{dyn_content_viewer_code}" /-->
     <div id="dyn_content_#{id}" style="margin:10px;width:50%;"></div>
     {#if]#{later}[#>]<script>
     send_dyndoc_cmd(":{dyn_content_viewer_code}","#dyn_content_#{id}");
@@ -69,12 +69,16 @@ LayoutMngr << [:js_code_post,#{=dyneditor_js_code_post}]
   //This function allows to update the code! Useful for other object! "content" can be undefined if unchanged!
     var dyn_content_viewer_update_code=function(id,content) {
       if(typeof content !== 'undefined') {
-        $('input[name=dyn_content_code_'+id+']').val(content);
+        //TO REMOVE: $('input[name=dyn_content_code_'+id+']').val(content);
+        register_dyndoc_exec_code(content,id);//put code on the server
       }
-      var code=$('input[name=dyn_content_code_'+id+']').val();
-      console.log("update:"+code);
-      send_dyndoc_cmd(code,"#dyn_content_"+id);
+      //TO REMOVE: var code=$('input[name=dyn_content_code_'+id+']').val();
+      //console.log("update:"+code);
+      //TO REMOVE: send_dyndoc_cmd(code,"#dyn_content_"+id);
+      send_dyndoc_exec_code("#dyn_content_"+id);
     }
+    //To replace hidden field
+    register_dyndoc_exec_code(":{dyn_content_viewer_code}","#dyn_content_#{id}");//put code on the server
     {#if]!#{later}[#>]
     open_cmd(":{dyn_content_viewer_code}","#dyn_content_#{id}");
     [#if}
@@ -91,6 +95,7 @@ LayoutMngr << [:js_code,#{=dyn_content_viewer_js_code}]
 {#def]RContentViewer[#,]id[][#,]code[rnorm(20)]
 [#,]later[true]
 [#rb<]code="[#R"+">>]"+#{=code}
+code.gsub!("\n",'\n')
 [#>]{#DynContentViewer]#{id}[#code]:{code}[#}
 [#def}
 

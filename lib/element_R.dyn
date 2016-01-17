@@ -1,7 +1,10 @@
 {#def]RSrvFirst[#,]code[][#,]client[true]
 [#?]#{client}[#R<]#{code}[#?]end
 [#rb<]
-code="open_cmd(\"[#R"+"<]"+#{=code}+"\");".gsub('\n','\\n')
+code="open_cmd(\"[#R"+"<]"+#{=code}+"\");"
+#Dyndoc.warn :rsrvfirst_code1,code
+code.gsub!("\n",'\n')
+#Dyndoc.warn :rsrvfirst_code2,code
 LayoutMngr << [:js_code_post,code]
 [#def}
 
@@ -24,7 +27,7 @@ $(function () {
 	$("#select-menu-#{id}").on('change',function () {
 		var sel=$("#select-menu-#{id}").val();
 		if(sel === null) sel="";
-		send_dyndoc_cmd("[#"+"R<]menuR$selected <- c("+sel+")");//no id!
+		send_dyndoc_cmd("[#"+"R<]#{menuR}$selected <- c("+sel+")");//no id!
 		#{js};
 		{#if]#{+?react}[#>]{#ReactiveElementUpdate]#{react}[#}[#if}
 	});
