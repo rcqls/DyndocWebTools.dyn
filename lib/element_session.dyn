@@ -1,3 +1,21 @@
+{#def]SessionSwitcher[#,]id[session_id_switcher][#,]label[Session id:][#,]cmd[session_id_switch_admin]
+[#=]session_id_switcher_html_code[<div class="ui-field-contain">
+  <label>#{label}</label>
+  <select id="#{id}" data-mini="true" data-native-menu="false"></select>
+</div>]
+[#=]session_id_switcher_js_code_post[
+$(function () {
+$("##{id}").change(function() {
+  var id=$("##{id}").val();
+  if(id !== null) send_cmd("#{cmd}",id,"");
+});
+});
+]
+[#rb<]
+LayoutMngr << [:js_code_post,#{=session_id_switcher_js_code_post}]
+[#>]#{session_id_switcher_html_code}
+[#def}
+
 {#def]SessionLogin[#,]id[Session id][#,]user[Utilisateur id][#,]passwd[Mot de Passe][#,]info[Informations][#,]info2[Prénom, Nom, Email, ...][#,]login[Connectez-vous][#,]question_form_add[true]
 [#rb<]Question.question_form_add if #{question_form_add}
 [#=]session_login_html_code[

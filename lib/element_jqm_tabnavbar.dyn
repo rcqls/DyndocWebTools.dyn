@@ -5,7 +5,7 @@
 [#blck]title[#do_code]cache[:tabs][-1][:title]=blckMngr.parse.strip
 [#blck]tab[#do_code]cache[:tabs][-1][:body]=blckMngr.parse
 [#blck]:post
-[#>]<div data-role="tabs" id="#{id}">
+[#>]<div data-role="tabs" id=":{cache[:id]}">
 [#rb<]ntabs=cache[:tabs].length
 Dyndoc.warn :tabs,[ntabs,cache[:tabs]]
 (0...ntabs).each do |i| #

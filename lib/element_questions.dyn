@@ -2,9 +2,9 @@
 [#=]session-id[:{Question.current_question_form}]
 [#%]answer could be an integer corresponding to the rank of the answer amoung the questions. Below is a correction
 [#?]#{=answer} =~ /^[1-9][0-9]*$/[#=]answer[q#{answer}][#?]end
-[#=]question_radio_choices_html_code[<div id="session_question" data-session-question-id="#{id}"><p>#{question}</p>
+[#=]question_radio_choices_html_code[<div id="session_question_#{id}" data-session-question-id="#{id}"><p>#{question}</p>
 <form>
-        <fieldset data-role="controlgroup" id="session_question_controlgroup">
+        <fieldset data-role="controlgroup" id="session_question_controlgroup_#{id}">
 ]
 [#rb<]
   (0...#{#choices}).each do |i| #
@@ -18,10 +18,10 @@
 [#%]This is here! for admin view (which does not have js code below)!
 [#?]#{with_mathjax}[#+]question_radio_choices_html_code[
   //console.log("mathjax update!");
-  MathJax.Hub.Queue(["Typeset", MathJax.Hub, "session_question"]);
+  MathJax.Hub.Queue(["Typeset", MathJax.Hub, "session_question_#{id}"]);
 ]
 [#?]end[#+]question_radio_choices_html_code[
-  $( "#session_question_controlgroup" ).controlgroup().trigger('create');
+  $( "#session_question_controlgroup_#{id}" ).controlgroup().trigger('create');
 </script>
 ]
 [#=]question_radio_choices_js_code[
@@ -31,7 +31,7 @@ $('input[name=session-radio-question]').on('change',function () {
         var id="#{session-id}";
         //console.log("id:"+id);
         var answer=$('input[type=radio][name=session-radio-question]:checked').val();
-        var qid=$("#session_question").attr("data-session-question-id");
+        var qid=$("#session_question_#{id}").attr("data-session-question-id");
         //
         console.log("session "+ qid+ ":"+ answer + "checked");
         send_cmd("session_answer",id,qid+"|"+answer);

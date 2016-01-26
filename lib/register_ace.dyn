@@ -1,6 +1,6 @@
 [#=]js_header_ace_tools[
-<script src="tools/ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
-<script src="tools/ace/src/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
+<script src="/tools/ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="/tools/ace/src/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
 ]
 [#=]css_code_ace_tools[
 .ace_editor {

@@ -1,0 +1,34 @@
+{#newBlck]jqmCollapsible[#aggregate]id,title,elt
+[#blck]:pre[#rb<]cache(elts: []) # cache initialized as {elts: []}
+[#blck]id[#do_code]cache[:id]=blckMngr.parse.strip
+[#blck]title[#do_code]cache[:elts][-1][:title]=blckMngr.parse.strip
+[#blck]elt[#do_code]cache[:elts][-1][:body]=blckMngr.parse
+[#blck]:post
+[#>]<div data-role="collapsibleset" id=":{cache[:id]}">
+[#rb>]cache[:elts].each do |elt| #
+  {#>]<div data-role="collapsible">
+    <h3>:{elt[:title]}</h3>
+    :{elt[:body]}
+    </div>
+  [#>}
+end
+[#>]<div>
+[#newBlck}
+
+
+{#hide]
+<div data-role="collapsibleset" data-theme="a" data-content-theme="a">
+    <div data-role="collapsible">
+      <h3>Section 1</h3>
+      ...
+    </div>
+    <div data-role="collapsible">
+      <h3>Section 2</h3>
+      ...
+    </div>
+    <div data-role="collapsible">
+      <h3>Section 3</h3>
+      ...
+    </div>
+</div>
+[#hide}

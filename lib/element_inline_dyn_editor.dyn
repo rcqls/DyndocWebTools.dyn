@@ -1,8 +1,9 @@
 {#def]DynEditor[#,]id[][#,]inline[true][#,]theme[monokai][#,]code[{#txt][#R>>]rnorm(20)[#}]
+[#,]opt[<<width[50%]<<maxlines[30]]
 [#rb<]dyneditor_code=#{=code}.gsub('"','\"')
 [#=]dyneditor_html_code[
-    <pre id="dyn_editor_#{id}" style="margin:10px;width:50%;"></pre>
-    <div id="dyn_content_#{id}" style="margin:10px;width:50%;"></div>
+    <pre id="dyn_editor_#{id}" style="margin:10px;width:#{opt.width};"></pre>
+    <div id="dyn_content_#{id}" style="margin:10px;width:#{opt.width};"></div>
 ]
 [#=]dyneditor_js_code_post[
       var editor_#{id} = ace.edit("dyn_editor_#{id}");
@@ -15,7 +16,7 @@
       editor_#{id}.session.setMode("ace/mode/dyndoc");
       editor_#{id}.session.setValue(":{dyneditor_code}");
       editor_#{id}.setAutoScrollEditorIntoView(true);
-      editor_#{id}.setOption("maxLines", 30);
+      editor_#{id}.setOption("maxLines", #{opt.maxlines});
 
       $(function () {
 
