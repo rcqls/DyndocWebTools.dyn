@@ -75,6 +75,14 @@ links of the form:
     end
     k,*v=elt.split(":")
     k.strip!
+    if k=~ /^http/
+      k+= ":" + v[0]
+      v=v[1..-1]
+      prefetch=" data-prefetch='true'"
+    else
+      k = "#"+k
+      prefetch=""
+    end
     v=v.join(":").strip
 
     if attrib
@@ -83,7 +91,7 @@ links of the form:
     else
       attrib={li: "", a: ""}
     end
-    {#>]<li :{attrib[:li]}><a href="#:{k}" :{attrib[:a]}>:{v}</a></li>[#nl][#>}
+    {#>]<li :{attrib[:li]}><a href=":{k}" :{attrib[:a]}:{prefetch}>:{v}</a></li>[#nl][#>}
   end
 [#>]</ul>
 [#def}

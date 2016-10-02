@@ -18,7 +18,7 @@ Dyndoc.warn :tabs,[ntabs,cache[:tabs]]
 end
 [#>]<div data-role="navbar"><ul>
 [#rb>]cache[:tabs].each do |tab| #
-  {#>]<li><a href=":{tab[:href]}" data-ajax="false">:{tab[:title]}</a></li>[#nl][#>}
+  {#>]<li><a href=":{tab[:href]}" data-ajax="false" id=":{cache[:id]}-:{tab[:href][1..-1]}">:{tab[:title]}</a></li>[#nl][#>}
 end
 [#>]</ul></div>
 [#rb>]cache[:tabs].each do |tab| #

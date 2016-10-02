@@ -17,6 +17,28 @@
 	<<jqtjs_innsbruck[
 	<style type="text/css" media="screen">@import "/tools/jqtjs/themes/css/innsbruck.css";</style>
 	]
+	<<jqtjs_jqtouch_loc9292[
+	<style type="text/css" media="screen">@import "http://localhost:9292/tools/jqtjs/themes/css/jqtouch.css";</style>
+	]
+	<<jqtjs_apple_loc9292[
+	<style type="text/css" media="screen">@import "http://localhost:9292/tools/jqtjs/themes/css/apple.css";</style>
+	]
+	<<jqtjs_vanilla_loc9292[
+	<style type="text/css" media="screen">@import "http://localhost:9292/tools/jqtjs/themes/css/vanilla.css";</style>
+	]
+	<<jqtjs_innsbruck_loc9292[
+	<style type="text/css" media="screen">@import "http://localhost:9292/tools/jqtjs/themes/css/innsbruck.css";</style>
+	]
+]
+[#=]css_header.jqexpand[
+		<style type="text/css" media="screen">
+		div[id^='expand-'] {
+			cursor: pointer;
+		}
+		div[id^='expandable-'] {
+			display:none;
+		}
+		</style>
 ]
 [#=]js_header[
 	<<jquery_cdnjs[
@@ -44,6 +66,35 @@
 	<<jqtjs[
         <script src="/tools/jqtjs/src/jqt.js" type="text/javascript" charset="utf-8"></script>
 	]
+	<<jqtjs_loc9292[
+        <script src="http://localhost:9292/tools/jqtjs/src/jqt.js" type="text/javascript" charset="utf-8"></script>
+	]
+]
+[#=]js_code_post.jqexpand[
+		$('[id^=expand-]').click(function(){ //$('.expand').click(function(){
+			var target_num = $(this).attr('id').split('-')[1];
+			var content_id = '#expandable-'.concat(target_num);
+			$(content_id).slideToggle('fast');
+		});
+]
+[#=]js_code_post.jqselect[
+		$('[id^=jqselect-btn]').click(function(){ //$('.jqselect').click(function(){
+			if($(this).val() === "on") {
+				$(this).val("off");
+			} else {
+				$(this).val("on");
+			};
+			var mode=$(this).val() === "on";
+			var jqselect_tag = $(this).attr('id').split('-')[2];
+			var content_id = '.jqselect-tag-'.concat(jqselect_tag);
+			$( content_id ).each(function() {
+				if(mode) {
+  				$( this ).show();
+				} else {
+					$( this ).hide();
+				}
+			});
+		});
 ]
 [#rb>]
 LayoutMngr.register(:js_header, :jquery_cdnjs, #{=js_header.jquery_cdnjs})
@@ -59,4 +110,12 @@ LayoutMngr.register(:css_header, :jqtjs_jqtouch, #{=css_header.jqtjs_jqtouch})
 LayoutMngr.register(:css_header, :jqtjs_apple, #{=css_header.jqtjs_apple})
 LayoutMngr.register(:css_header, :jqtjs_vanilla, #{=css_header.jqtjs_vanilla})
 LayoutMngr.register(:css_header, :jqtjs_innsbruck, #{=css_header.jqtjs_innsbruck})
+LayoutMngr.register(:css_header, :jqtjs_jqtouch_loc9292, #{=css_header.jqtjs_jqtouch_loc9292})
+LayoutMngr.register(:css_header, :jqtjs_apple_loc9292, #{=css_header.jqtjs_apple_loc9292})
+LayoutMngr.register(:css_header, :jqtjs_vanilla_loc9292, #{=css_header.jqtjs_vanilla_loc9292})
+LayoutMngr.register(:css_header, :jqtjs_innsbruck_loc9292, #{=css_header.jqtjs_innsbruck_loc9292})
 LayoutMngr.register(:js_header, :jqtjs, #{=js_header.jqtjs})
+LayoutMngr.register(:js_header, :jqtjs_loc9292, #{=js_header.jqtjs_loc9292})
+LayoutMngr.register(:css_header, :jqexpand, #{=css_header.jqexpand})
+LayoutMngr.register(:js_code_post, :jqexpand, #{=js_code_post.jqexpand})
+LayoutMngr.register(:js_code_post, :jqselect, #{=js_code_post.jqselect})

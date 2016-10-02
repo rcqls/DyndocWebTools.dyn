@@ -1,0 +1,8 @@
+[#=]js_header_statInfAEP_0_9_0[
+<script src="http://code.createjs.com/createjs-2014.12.12.min.js"></script>
+<script src="/tools/statInfAEP_CqlsJS/0.9.0/cqls.js"></script>
+<script src="/tools/statInfAEP_CqlsJS/proba/main.js"></script>
+<script src="/tools/statInfAEP_CqlsJS/hypo/main.js"></script>
+<script src="/tools/statInfAEP_CqlsJS/distributions.js"></script>
+]
+[#rb>]LayoutMngr.register(:js_header, :statinfAEP_0_9_0, #{=js_header_statInfAEP_0_9_0})

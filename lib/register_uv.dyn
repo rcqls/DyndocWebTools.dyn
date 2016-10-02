@@ -1,7 +1,10 @@
 [#rb<][:active4d,:brilliance_dull,:idle,:pastels_on_dark,:twilight,:all_hallows_eve,:cobalt,:iplastic,:slush_poppies,:zenburnesque,:amy,:dawn,:lazy,:solarized,:blackboard,:eiffel,:mac_classic,:spacecadet,:brilliance_black,:espresso_libre,:magicwb_amiga,:sunburst].each do |style| #
-	 css_header_uv='<link href="http://sagag6.upmf-grenoble.fr/stylesheets/uv/css/'+style.to_s+'.css" media="screen,projection,print" rel="Stylesheet" type="text/css" />'
+	css_header_uv='<link href="http://sagag6.upmf-grenoble.fr/stylesheets/uv/css/'+style.to_s+'.css" media="screen,projection,print" rel="Stylesheet" type="text/css" />'
 	LayoutMngr.register(:css_header,"sagag6_uv_"+style.to_s,css_header_uv)
 
 	css_header_uv='<link href="/tools/uv/'+style.to_s+'.css" media="screen,projection,print" rel="Stylesheet" type="text/css" />'
 	LayoutMngr.register(:css_header,"uv_"+style.to_s,css_header_uv)
+
+	css_header_uv='<link href="http://localhost:9292/stylesheets/uv/css/'+style.to_s+'.css" media="screen,projection,print" rel="Stylesheet" type="text/css" />'
+	LayoutMngr.register(:css_header,"loc9292_uv_"+style.to_s,css_header_uv)
 end
