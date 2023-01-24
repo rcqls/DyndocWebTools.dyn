@@ -1,6 +1,6 @@
 [#=]css_header[
 	<<jquery_mobile_cdnjs[
-<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
 	]
 	<<jquery_mobile_datepicker[
 <link rel="stylesheet" href="https://rawgithub.com/arschmitz/jquery-mobile-datepicker-wrapper/master/jquery.mobile.datepicker.css" />
@@ -42,13 +42,13 @@
 ]
 [#=]js_header[
 	<<jquery_cdnjs[
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	]
 	<<zepto_cdnjs[
 <script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.1.6/zepto.js"></script>
 	]
 	<<jquery_mobile_cdnjs[
-<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	]
 	<<jquery_mobile_datepicker[
 <script src="https://rawgithub.com/jquery/jquery-ui/1-10-stable/ui/jquery.ui.datepicker.js"></script>
@@ -58,16 +58,16 @@
 	<script src="https://rawgithub.com/firstopinion/formatter.js/master/dist/jquery.formatter.js"></script>
 	]
 	<<jquery_validation[
-	<script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js"></script>
 	]
 	<<jquery_validation_add[
-	<script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/additional-methods.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.14.0/additional-methods.min.js"></script>
 	]
 	<<jqtjs[
         <script src="/tools/jqtjs/src/jqt.js" type="text/javascript" charset="utf-8"></script>
 	]
 	<<jqtjs_loc9292[
-        <script src="http://localhost:9292/tools/jqtjs/src/jqt.js" type="text/javascript" charset="utf-8"></script>
+        <script src="https://localhost:9292/tools/jqtjs/src/jqt.js" type="text/javascript" charset="utf-8"></script>
 	]
 ]
 [#=]js_code_post.jqexpand[
